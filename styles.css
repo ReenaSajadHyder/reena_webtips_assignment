@@ -1,46 +1,46 @@
 
 
 body{
-    border: 0;
-    padding: 0;
-    background-image: url(/images/background.svg);
+    
 }
 
 .top-section{
+    background-image: url(/images/background.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
     display: grid;
-    height: 17rem;
-    width: 100rem;
-    grid-template-columns: 10% 10% 20% 10% 50%;
-    position: relative;
-    border: 10px red;
+    height: 30%;
+    width: 100%;
+    grid-template-columns: 10% 20% 10% 10% 50%;
 }
 
 .cityicon{
-    height: 140px;
-    width: 140px;
+    height: 75%;
+    width: 75%;
 }
 
 #city{
-    position: absolute;
     font-size: 30px;
-    top: 30px;
-    left: 180px;
-    height: 70px;
-    width: 200px;
+    height: 25%;
+    width: 60%;
     background-color: rgba(131, 131, 131, 0.25);
 }
 .grid-item1{
-     
+     align-self: start;
 }
 
 #time{
-    font-size: 40px;
+    font-size: 30px;
     color: mistyrose;
 }
 
 #date{
-    font-size: 40px;
+    font-size: 30px;
     color: mistyrose;
+}
+
+.sec{
+    font-size: 20px;
 }
 
 #amstate{
@@ -49,7 +49,7 @@ body{
 }
 
 .grid-item2{
-    
+    padding-top: 15%;
 }
 
 #temp{
@@ -57,11 +57,18 @@ body{
 }
 
 .grid-item3{
-    background-color:aquamarine;
+    
 }
 
+.temp {
+    color: aliceblue;
+}
+
+.humprecip{
+    color: aliceblue;
+}
 .grid-item4{
-    background-color:beige;
+    
 }
 
 .grid-item5{
