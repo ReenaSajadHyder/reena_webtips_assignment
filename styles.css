@@ -1,17 +1,18 @@
 
-
-body{
-    
+*{
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .top-section{
-    background-image: url(/images/background.svg);
+    background-image: url(./images/background.svg);
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
     display: grid;
     height: 30%;
     width: 100%;
     grid-template-columns: 10% 20% 10% 10% 50%;
+    padding-top: 2%;
 }
 
 .cityicon{
@@ -19,22 +20,29 @@ body{
     width: 75%;
 }
 
-#city{
-    font-size: 30px;
+.city{
+    font-size: 35px;
     height: 25%;
-    width: 60%;
+    width: 70%;
     background-color: rgba(131, 131, 131, 0.25);
+    color:  #FFFFFF;
 }
 .grid-item1{
      align-self: start;
 }
 
-#time{
+.tandd{
+    display: flex;
+    flex-direction: column;
+}
+
+.time{
+    display: flex;
     font-size: 30px;
     color: mistyrose;
 }
 
-#date{
+.date{
     font-size: 30px;
     color: mistyrose;
 }
@@ -43,35 +51,84 @@ body{
     font-size: 20px;
 }
 
-#amstate{
+.amstate{
     height: 45px;
-    width: 45px;
+    padding-top: 5%;
+    padding-left: 2%;
 }
 
 .grid-item2{
     padding-top: 15%;
 }
 
-#temp{
+.temp{
+    color:  #FFFFFF;
+    padding-right: 17%;
+}
+
+.tempC{
+    border-right: 1px dotted;
+}
+
+.tempF{
+    border-right: 1px dotted;
+}
+
+.tempnum{
+    font-size: 30px;
+}
+
+.tempword{
     font-size: 20px;
 }
 
-.grid-item3{
-    
-}
-
-.temp {
-    color: aliceblue;
-}
-
 .humprecip{
-    color: aliceblue;
-}
-.grid-item4{
-    
+    color:  #FFFFFF;
+    padding-left: 5%;
+
 }
 
-.grid-item5{
-    
+.humword {
+    font-size: 20px;
 }
 
+.precipword {
+    font-size: 20px;
+}
+
+.humnum{
+    font-size: 30px;
+}
+
+.precipnumber{
+    font-size: 30px;
+}
+
+.hour{
+    display: flex;
+    justify-content: space-between;
+    color: #FFFFFF;
+    font-size: 16px;
+    padding-top: 5%;
+}
+
+.line{
+    display: flex;
+    justify-content: space-between;
+    color: #FFFFFF;
+    font-size: 20px;
+}
+
+.icon{
+    display: flex;
+    justify-content: space-between;
+    padding-top:2%;
+}
+
+.precipnum{
+    display: flex;
+    justify-content: space-between;
+    color: #FFFFFF;
+    font-size: 20px;
+    padding-top: 5%;
+}
