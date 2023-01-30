@@ -3,11 +3,14 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.top-section{
+body{
     background-image: url(./images/background.svg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+}
+
+.top-section{
     display: grid;
     height: 30%;
     width: 100%;
@@ -32,17 +35,17 @@
 }
 
 .tandd{
-    display: flex;
     flex-direction: column;
 }
 
 .time{
-    display: flex;
+    margin-top: -10px;
     font-size: 30px;
     color: mistyrose;
 }
 
 .date{
+    margin-top: -20px;
     font-size: 30px;
     color: mistyrose;
 }
@@ -52,13 +55,11 @@
 }
 
 .amstate{
-    height: 45px;
-    padding-top: 5%;
-    padding-left: 2%;
+    height: 65px;
 }
 
 .grid-item2{
-    padding-top: 15%;
+    padding-top: 25px;
 }
 
 .temp{
@@ -130,5 +131,116 @@
     justify-content: space-between;
     color: #FFFFFF;
     font-size: 20px;
-    padding-top: 5%;
+    padding-top: 4%;
 }
+
+.middle-section{
+    display: grid;
+    background-color: black;
+    border-radius: 35px;
+    overflow: hidden;
+}
+
+.userpref{
+    display: grid;
+    grid-template-columns: 70% 5% 5% 5% 15%;
+    color: #FFFFFF;
+    font-size: 27px;
+}
+
+.topcities{
+    padding-left: 55%;
+}
+
+.symbols{
+    padding-top: 29%;
+}
+
+.displaytop{
+    font-size: 17px;
+    padding-top: 13%;
+}
+
+.displaytopinput{
+    background-color: rgba(131, 131, 131, 0.25);
+    color: #FFFFFF;
+}
+
+.row{
+    align-items: stretch;
+    grid-auto-flow: column;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    grid-auto-flow: column;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    column-gap: 30px;
+
+  }
+
+  .card {
+    padding: 1rem;
+    border: 5%;
+    min-width: 20%;
+    margin-bottom: 4rem;
+    flex-basis: 20%;
+    background-color:#181818;
+    background-image: url(./images/karachi.svg);
+    background-position: bottom right;
+    background-repeat: no-repeat;
+    background-size: 50%;
+    border-radius: 10px;
+    transition: transform 2s;
+  }
+
+  .card:hover{
+    transform: scale(1.15);
+  }
+
+  .citynametemp{
+    display: flex;
+    justify-content: space-between;
+    color: #FFFFFF;
+    font-size: 25px;
+  }
+  
+  .sunnyicon{
+    height: 25px;
+    width: 25px;
+  }
+
+  .td{
+    color: #FFFFFF;
+    font-size: 20px;
+  }
+
+  @media (max-width: 600px){
+    .top-section{
+        grid-template-columns: 20% 40% 20% 20%;
+    }
+    .grid-item5{
+        grid-column: 1/5;
+    }
+    
+    .userpref{
+        display: grid;
+        grid-template-columns: 18% 10% 10% 10% 20%;
+        color: #FFFFFF;
+        font-size: 14px;
+    }
+    .topcities{
+        padding-left: 5%;
+    }
+    .displaytop{
+        font-size: 10px;
+        padding-top: 13%;
+    }
+    .symbols{
+        height: 20px;
+        width: 20px;
+  }
+  
