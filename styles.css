@@ -34,10 +34,6 @@ body{
      align-self: start;
 }
 
-/*.tandd{
-    flex-direction: column;
-}*/
-
 .time{
     margin-top: -10px;
     font-size: 30px;
@@ -67,42 +63,23 @@ body{
     padding-right: 17%;
 }
 
-.tempC{
+.tempborder{
     border-right: 1px dotted;
 }
 
-.tempF{
-    border-right: 1px dotted;
-}
-
-.tempnum{
+.tempnum, .humnum, .precipnumber
+{
     font-size: 30px;
 }
 
-.tempword{
+.tempword, .humword, .precipword
+{
     font-size: 20px;
 }
 
 .humprecip{
     color:  #FFFFFF;
     padding-left: 5%;
-
-}
-
-.humword {
-    font-size: 20px;
-}
-
-.precipword {
-    font-size: 20px;
-}
-
-.humnum{
-    font-size: 30px;
-}
-
-.precipnumber{
-    font-size: 30px;
 }
 
 .hour{
@@ -144,6 +121,7 @@ body{
     border-top-right-radius: 35px;
     border-top-left-radius: 35px;
     overflow: hidden;
+    padding: 0;
 }
 
 .userpref{
@@ -237,12 +215,7 @@ body{
     padding-left: 3%;
   }
 
-  .continentname{
-    font-size: 25px;
-    padding-top: 3%;
-  }
-
-  .temperature{
+  .continentname, .temperature{
     font-size: 25px;
     padding-top: 3%;
   }
