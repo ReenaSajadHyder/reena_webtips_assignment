@@ -137,6 +137,7 @@ body{
 
 .symbols{
     padding-top: 29%;
+    cursor: pointer;
 }
 
 .displaytop{
