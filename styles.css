@@ -199,6 +199,10 @@ input[type=number]::-webkit-outer-spin-button {
 
   }
 
+  .row::-webkit-scrollbar{
+    display: none;
+  }
+
   .card {
     padding: 1rem;
     border: 5%;
@@ -253,7 +257,7 @@ input[type=number]::-webkit-outer-spin-button {
 
   .acrosscontinents{
     display: grid;
-    grid-template-columns: 70% 15% 15%;
+    grid-template-columns: 65% 20% 15%;
     color: #FFFFFF;
     font-size: 30px;
     padding-left: 3%;
@@ -262,6 +266,7 @@ input[type=number]::-webkit-outer-spin-button {
   }
 
   .continentname, .temperature{
+    align-self: flex-start;
     font-size: 25px;
     padding-top: 3%;
   }
@@ -341,10 +346,11 @@ input[type=number]::-webkit-outer-spin-button {
 
     .userpref{
         display: grid;
-        grid-template-columns: 50% 10% 10% 10% 20%;
+        grid-template-columns: 36% 10% 10% 10% 34%;
         color: #FFFFFF;
         font-size: 14px;
     }
+    
     .topcities{
         padding-left: 10%;
         font-size: 20px;
@@ -364,16 +370,16 @@ input[type=number]::-webkit-outer-spin-button {
 
     .acrosscontinents{
         grid-template-columns: 55% 25% 20%;
-        font-size: 18px;
+        font-size: 23px;
         padding-left: 17px;
     }
 
     .continentname{
-        font-size: 15px;
+        font-size: 20px;
     }
     
     .temperature{
-        font-size: 15px;
+        font-size: 20px;
     }
     
     .contname{
