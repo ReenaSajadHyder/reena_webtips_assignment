@@ -1,21 +1,17 @@
 
-/**, *::before, *::after {
+*, *::before, *::after {
     box-sizing: border-box;
   }
   * {
     margin: 0;
-  }*/
- 
-
-*{
-    font-family: Arial, Helvetica, sans-serif;
-}
+  }
 
 body{
     background-image: url(./images/background.svg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    font-family: 'Roboto', sans-serif;
 }
 
 .top-section{
@@ -23,33 +19,35 @@ body{
     height: 30%;
     width: 100%;
     grid-template-columns: 10% 20% 10% 10% 50%;
-    padding-top: 2%;
+    margin-bottom: 3%;
 }
 
 .cityicon{
-    height: 75%;
-    width: 75%;
+    height: 65%;
+    width: 65%;
 }
 
 .city{
-    font-size: 35px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
     height: 25%;
     width: 70%;
     background-color: rgba(131, 131, 131, 0.25);
     color:  #FFFFFF;
+    margin-top: 13%;
 }
+
 .grid-item1{
      align-self: start;
 }
 
 .time{
-    margin-top: -10px;
+    margin-top: 15px;
     font-size: 30px;
     color: mistyrose;
 }
 
 .date{
-    margin-top: -20px;
     font-size: 30px;
     color:#FFFFFF;
 }
@@ -62,22 +60,25 @@ body{
     height: 65px;
 }
 
-.grid-item2{
-    padding-top: 25px;
-}
-
 .temp{
     color:  #FFFFFF;
     padding-right: 17%;
+    padding-top: 17%;
 }
 
-.tempborder{
+.tempC{
+    border-right: 1px dotted;
+}
+
+.tempF{
+    margin-top: 35px;
     border-right: 1px dotted;
 }
 
 .tempnum, .humnum, .precipnumber
 {
     font-size: 30px;
+    padding-top: 9%;
 }
 
 .tempword, .humword, .precipword
@@ -85,9 +86,14 @@ body{
     font-size: 20px;
 }
 
+.precip{
+    padding-top: 35px;
+}
+
 .humprecip{
     color:  #FFFFFF;
     padding-left: 5%;
+    padding-top: 17%;
 }
 
 .hour{
@@ -95,7 +101,8 @@ body{
     justify-content: space-between;
     color: #FFFFFF;
     font-size: 16px;
-    padding-top: 5%;
+    padding-top: 8%;
+    flex-wrap: wrap;
 }
 
 .line{
@@ -103,14 +110,17 @@ body{
     justify-content: space-between;
     color: #FFFFFF;
     font-size: 20px;
+    padding-top: 2%;
     padding-left: 2%;
     padding-right: 2%;
+    flex-wrap: wrap;
 }
 
 .icon{
     display: flex;
     justify-content: space-between;
-    padding-top: 2%;
+    padding-top: 1.5%;
+    flex-wrap: wrap;
 }
 
 .precipnum{
@@ -118,9 +128,10 @@ body{
     justify-content: space-between;
     color: #FFFFFF;
     font-size: 20px;
-    padding-top: 4%;
+    padding-top: 1%;
     padding-left: 2%;
     padding-right: 2%;
+    flex-wrap: wrap;
 }
 
 .middle-section{
@@ -136,11 +147,13 @@ body{
     display: grid;
     grid-template-columns: 70% 5% 5% 5% 15%;
     color: #FFFFFF;
-    font-size: 27px;
+    font-size: 23px;
 }
 
 .topcities{
-    padding-left: 55%;
+    padding-top: 2%;
+    padding-bottom: 4%;
+    padding-left: 50%;
 }
 
 .symbols{
@@ -165,6 +178,11 @@ input[type=number]::-webkit-outer-spin-button {
 
 }
 
+.citycard{
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
 .row{
     align-items: stretch;
     grid-auto-flow: column;
@@ -186,7 +204,7 @@ input[type=number]::-webkit-outer-spin-button {
     border: 5%;
     min-width: 20%;
     margin-bottom: 4rem;
-    flex-basis: 20%;
+    flex-basis: 25%;
     background-color:#181818;
     background-image: url(./images/karachi.svg);
     background-position: bottom right;
@@ -217,7 +235,14 @@ input[type=number]::-webkit-outer-spin-button {
 
   .td{
     color: #FFFFFF;
-    font-size: 20px;
+    font-size: 15px;
+    padding-top: 5%;
+  }
+
+  .hp{
+    color: #FFFFFF;
+    font-size: 15px;
+    padding-top: 5%;
   }
 
   .bottom-section{
@@ -232,6 +257,8 @@ input[type=number]::-webkit-outer-spin-button {
     color: #FFFFFF;
     font-size: 30px;
     padding-left: 3%;
+    padding-top: 3%;
+    padding-bottom: 3%;
   }
 
   .continentname, .temperature{
@@ -287,7 +314,7 @@ input[type=number]::-webkit-outer-spin-button {
     text-align: end;
   }
 
-  @media (max-width: 600px)
+  @media (max-width: 950px)
   {
     .top-section{
         grid-template-columns: 20% 40% 20% 20%;
