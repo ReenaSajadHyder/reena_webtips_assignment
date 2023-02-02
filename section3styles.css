@@ -19,6 +19,7 @@
   align-self: flex-start;
   font-size: 25px;
   padding-top: 3%;
+  cursor: pointer;
 }
 
 .continent-city {
@@ -98,4 +99,10 @@
   .cont-hum {
     font-size: 19px;
   }
+}
+
+@media (max-width: 700px){
+    .continent-city{
+        grid-template-columns: 1fr 1fr;
+      }
 }
