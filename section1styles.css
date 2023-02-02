@@ -1,0 +1,147 @@
+.top-section {
+  display: grid;
+  height: 30%;
+  width: 100%;
+  grid-template-columns: 10% 20% 10% 10% 50%;
+  margin-bottom: 3%;
+}
+
+.city-icon {
+  height: 65%;
+  width: 65%;
+}
+
+.city {
+  font-family: "Roboto", sans-serif;
+  font-size: 30px;
+  height: 25%;
+  width: 70%;
+  background-color: rgba(131, 131, 131, 0.25);
+  color: #ffffff;
+  margin-top: 13%;
+}
+
+.grid-item1 {
+  align-self: start;
+}
+
+.time {
+  margin-top: 15px;
+  font-size: 30px;
+  color: mistyrose;
+}
+
+.date {
+  font-size: 30px;
+  color: #ffffff;
+}
+
+.sec {
+  font-size: 20px;
+}
+
+.am-state {
+  height: 65px;
+}
+
+.temp {
+  color: #ffffff;
+  padding-right: 17%;
+  padding-top: 17%;
+}
+
+.temp-c {
+  border-right: 1px dotted;
+}
+
+.temp-f {
+  margin-top: 35px;
+  border-right: 1px dotted;
+}
+
+.temp-num,
+.hum-num,
+.precip-number {
+  font-size: 30px;
+  padding-top: 9%;
+}
+
+.temp-word,
+.hum-word,
+.precip-word {
+  font-size: 20px;
+}
+
+.precip {
+  padding-top: 35px;
+}
+
+.hum-precip {
+  color: #ffffff;
+  padding-left: 5%;
+  padding-top: 17%;
+}
+
+.hour {
+  display: flex;
+  justify-content: space-between;
+  color: #ffffff;
+  font-size: 16px;
+  padding-top: 8%;
+  flex-wrap: wrap;
+}
+
+.line {
+  display: flex;
+  justify-content: space-between;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: bold;
+  padding-top: 2%;
+  padding-left: 2%;
+  padding-right: 2%;
+  flex-wrap: wrap;
+}
+
+.icon {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1.5%;
+  flex-wrap: wrap;
+}
+
+.precip-num {
+  display: flex;
+  justify-content: space-between;
+  color: #ffffff;
+  font-size: 20px;
+  padding-top: 1%;
+  padding-left: 2%;
+  padding-right: 2%;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 950px) {
+  .top-section {
+    grid-template-columns: 20% 40% 20% 20%;
+  }
+
+  .city {
+    font-size: 25px;
+    height: 25%;
+    width: 70%;
+  }
+
+  .grid-item5 {
+    grid-column: 1/5;
+    padding-bottom: 25px;
+  }
+
+  .time {
+    font-size: 30px;
+  }
+
+  .date {
+    font-size: 30px;
+  }
+}
