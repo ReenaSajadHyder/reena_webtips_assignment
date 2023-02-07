@@ -17,18 +17,26 @@
       <div class="grid-item1 iconplace">
         <img
           class="city-icon"
+          id="city-icon"
           src="./images/Icons for cities/london.svg"
           alt="cityicon"
         />
       </div>
       <div class="grid-item2 citytd">
-        <select name="city" class="city">
+       <!--<select name="city" class="city">
           <option value="newdelhi">New Delhi</option>
           <option value="london">London</option>
           <option value="kolkata">Kolkata</option>
           <option value="moscow">Moscow</option>
           <option value="newyork">New York</option>
-        </select>
+        </select>  -->
+
+        <input list="city" name="city" id="city1" class="city" onchange="change()">
+
+        <datalist id="city">
+          
+        </datalist>
+
         <div class="t-and-d">
           <div class="time">
             <p>
@@ -48,21 +56,21 @@
       <div class="grid-item3 temp">
         <div class="temp-c">
           <p class="temp-word">Temp° C</p>
-          <p class="temp-num"><strong>25 C</strong></p>
+          <p class="temp-num" id="tempnum-c"><strong>25 C</strong></p>
         </div>
         <div class="temp-f">
           <p class="temp-word">Temp° F</p>
-          <p class="temp-num"><strong>78 F</strong></p>
+          <p class="temp-num" id="tempnum-f"><strong>78 F</strong></p>
         </div>
       </div>
       <div class="grid-item4 hum-precip">
         <div class="hum">
           <p class="hum-word">Humidity</p>
-          <p class="hum-num"><strong>26%</strong></p>
+          <p class="hum-num" id="hum-num" ><strong>26%</strong></p>
         </div>
         <div class="precip">
           <p class="precip-word">Precipitation</p>
-          <p class="precip-number"><strong>0%</strong></p>
+          <p class="precip-number" id="precip-number"><strong>0%</strong></p>
         </div>
       </div>
       <div class="grid-item5 hourly">
@@ -447,5 +455,7 @@
         </div>
       </div>
     </div>
+    <script src="index.js"></script>
+    <script src="data.json"></script>
   </body>
 </html>
