@@ -27,6 +27,22 @@ function changeToFahrenheit(val){
 }
 
 function change() {
+
+    const monthArr = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+    ];
+
     var city = Object.keys(weather_data);
     let currentCity = document.querySelector("#city1").value;
     console.log(currentCity);
@@ -51,7 +67,16 @@ function change() {
     //Precipitation
     document.getElementById("precip-number").innerHTML = weather_data[currentCity].precipitation;
 
+    //Date and Time
+    dateTimeArr = weather_data[currentCity].dateAndTime.split(",");
 
+    //Time
+    document.getElementById("time").innerHTML = dateTimeArr[1];
 
-
+    //Date
+    let dateSplit = dateTimeArr[0];
+    let dateArr = dateSplit.split("/");
+    let dateInWords = String(dateArr[1].padStart(2,'0')) + "-" + monthArr[dateArr[0] - 1] + "-" + dateArr[2];
+    document.getElementById("date").innerHTML = dateInWords;
+    
 }
