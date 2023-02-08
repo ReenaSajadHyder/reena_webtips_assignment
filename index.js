@@ -89,6 +89,10 @@ function change() {
     var logo = document.getElementById("city-icon");
     logo.src = `./images/Icons for cities/${currentCity}.svg`;
 
+    //Red outline for input box
+    document.querySelector("#city1").style.borderColor = "black";
+
+
     //temperature C
     document.getElementById("tempnum-c").innerHTML = weather_data[currentCity].temperature;
 
