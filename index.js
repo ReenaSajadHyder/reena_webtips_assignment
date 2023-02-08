@@ -1,13 +1,13 @@
-let weather_data;
+var weather_data;
+
 fetch("data.json")
 .then(data => data.json())
 .then(result => {
     weather_data = result;
     console.log(weather_data);
     setCity();
+    initCity();
 });
-
-
 
 function setCity() {
     var city = Object.keys(weather_data);
@@ -19,12 +19,40 @@ function setCity() {
     document.querySelector("#city").innerHTML = option;
 }; 
 
+function initCity() {
+    city = Object.keys (weather_data);
+    //console.log(city[0]);
+    document.querySelector("#city1").value = city[0];
+    //console.log(document.querySelector("#city1").value);
+    change();
+}; 
+
+//convert celsius to fahrenheit
 let far;
 function changeToFahrenheit(val){
     let fahrenheit = val * 1.8 + 32;
     console.log("This is displayed in console:" + fahrenheit);
     return fahrenheit;
 };
+
+function callChange() {
+    console.log("Inside callChange function");
+    var city = Object.keys(weather_data);
+    console.log(city[8]);
+    let cityGiven = document.querySelector("#city1").value;
+    console.log(cityGiven);
+    let flag = 0;
+    for(let i = 0; i < city.length; i++){
+        if(cityGiven == city[i]){
+            console.log("Inside if");
+            change();
+            flag = 1;
+        }
+    }
+    if (flag == 0){
+        setNullVal();
+    }
+}
 
 function change() {
 
@@ -42,6 +70,8 @@ function change() {
         "Nov",
         "Dec"
     ];
+
+    console.log("Inside change");
 
     var city = Object.keys(weather_data);
     let currentCity = document.querySelector("#city1").value;
@@ -138,13 +168,53 @@ function change() {
         }
     }; 
 
-
     //Temperature
     document.getElementById("temp-num1").innerHTML = weather_data[currentCity].temperature.slice(0,-2);
     for( let i=2; i<6; i++) {
         document.getElementById(`temp-num${i}`).innerHTML = weather_data[currentCity].nextFiveHrs[i-2].slice(0,-2);
     }
-    document.getElementById("temp-num6").innerHTML = weather_data[currentCity].temperature.slice(0,-2);
+    document.getElementById("temp-num6").innerHTML = weather_data[currentCity].temperature.slice(0,-2);    
+};
 
-    
-}
+
+function setNullVal() {
+
+    //Red outline for input box
+    document.querySelector("#city1").style.borderColor = "red";
+
+    //city logo
+    var logo = document.getElementById("city-icon");
+    logo.src = `./images/Icons for cities/defaultIcon.png`;
+
+    //temperature C
+    document.getElementById("tempnum-c").innerHTML = "-";
+
+    //temperature F
+    document.getElementById("tempnum-f").innerHTML = "-";
+
+    //Humidity
+    document.getElementById("hum-num").innerHTML = "-";
+
+    //Precipitation
+    document.getElementById("precip-number").innerHTML = "-";
+
+    //Date and Time
+    document.getElementById("time").innerHTML = "Invalid City name.";
+    document.getElementById("date").innerHTML = "";
+
+    //Hourly Weather
+    //Time
+    for(let i = 1; i < 6; i++){
+        document.getElementById(`hour${i}`).innerHTML = "NA";
+    };
+
+    //Weather symbol
+    for(let i=0; i<6; i++){
+        document.getElementById(`icon-${i+1}`).src = "./images/Weather Icons/warning2.png";
+    }; 
+
+    //Temperature
+    for( let i=1; i<7; i++) {
+        document.getElementById(`temp-num${i}`).innerHTML = "-";
+    }  
+};

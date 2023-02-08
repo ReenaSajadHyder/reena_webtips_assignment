@@ -11,7 +11,7 @@
     <title> Weather App </title>
     <link rel="shortcut icon" href="./images/faviconv1.png"/>
   </head>
-  <body>
+  <body >
     <!--section 1-->
     <div class="top-section">
       <div class="grid-item1 iconplace">
@@ -31,10 +31,8 @@
           <option value="newyork">New York</option>
         </select>  -->
 
-        <input list="city" name="city" id="city1" class="city" onchange="change()">
-
+          <input id="city1" onchange="callChange()" class="city" list="city" name="city">
         <datalist id="city">
-          
         </datalist>
 
         <div class="t-and-d">
@@ -118,22 +116,22 @@
           </div>
         </div>
         <div class="icon">
-          <div class="">
+          <div class="icon-1">
             <img id="icon-1" src="./images/Weather Icons/cloudyIcon.svg" alt="cloudyicon" />
           </div>
-          <div class="">
+          <div class="icon-2">
             <img id="icon-2" src="./images/Weather Icons/rainyIcon.svg" alt="rainyicon" />
           </div>
-          <div class="">
+          <div class="icon-3">
             <img id="icon-3" src="./images/Weather Icons/windyIcon.svg" alt="windyicon" />
           </div>
-          <div class="">
+          <div class="icon-4">
             <img id="icon-4" src="./images/Weather Icons/rainyIcon.svg" alt="rainyicon" />
           </div>
-          <div class="">
+          <div class="icon-5">
             <img id="icon-5" src="./images/Weather Icons/windyIcon.svg" alt="windyicon" />
           </div>
-          <div class="">
+          <div class="icon-6">
             <img id="icon-6" src="./images/Weather Icons/rainyIcon.svg" alt="rainyicon" />
           </div>
         </div>
