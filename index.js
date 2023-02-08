@@ -138,7 +138,13 @@ function change() {
     time = time.slice(0,2);
     time = parseInt(time) + 1;
     for(var i = 1; i < 6; i++){
-        if(time > 12)
+        if (time == (11 || 12) && amPm == "AM"){
+            amPm = "PM";
+        }
+        else if (time == (11 || 12) && amPm == "PM"){
+            amPm = "AM";
+        }
+        else if(time > 12)
         {
             time = time - 12;
             if (amPm == "AM"){
