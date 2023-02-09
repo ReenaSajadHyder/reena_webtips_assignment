@@ -7,7 +7,6 @@ fetch("data.json")
 .then(data => data.json())
 .then(result => {
     weather_data = result;
-    console.log(weather_data);
     setCity();
     initCity();
 });
@@ -24,23 +23,17 @@ function setCity() {
 
 function initCity() {
     var city = Object.keys (weather_data);
-    //console.log(city[0]);
     document.querySelector("#city1").value = city[0];
-    //console.log(document.querySelector("#city1").value);
     callChange();
     document.querySelector("#city1").addEventListener("change", callChange);
 }; 
 
 function callChange() {
-    console.log("Inside callChange function");
     var city = Object.keys(weather_data);
-    console.log(city[8]);
     let cityGiven = document.querySelector("#city1").value;
-    console.log(cityGiven);
     let flag = 0;
     for(let i = 0; i < city.length; i++){
         if(cityGiven == city[i]){
-            console.log("Inside if");
             changeWeather();
             flag = 1;
         }
@@ -67,11 +60,8 @@ function changeWeather() {
         "Dec"
     ];
 
-    //console.log("Inside change");
-
     var city = Object.keys(weather_data);
     let currentCity = document.querySelector("#city1").value;
-    console.log(currentCity);
 
     const sixHoursTemp = [
         parseInt(weather_data[currentCity].temperature.slice(0,-2))
