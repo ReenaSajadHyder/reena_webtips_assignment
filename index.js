@@ -1,4 +1,5 @@
 var weather_data;
+let far;
 
 fetch("data.json")
 .then(data => data.json())
@@ -28,7 +29,7 @@ function initCity() {
 }; 
 
 //convert celsius to fahrenheit
-let far;
+
 function changeToFahrenheit(val){
     let fahrenheit = val * 1.8 + 32;
     console.log("This is displayed in console:" + fahrenheit);
