@@ -1,3 +1,5 @@
+import changeToFahrenheit from "./export.js";
+
 var weather_data;
 let far;
 
@@ -21,20 +23,13 @@ function setCity() {
 }; 
 
 function initCity() {
-    city = Object.keys (weather_data);
+    var city = Object.keys (weather_data);
     //console.log(city[0]);
     document.querySelector("#city1").value = city[0];
     //console.log(document.querySelector("#city1").value);
-    change();
+    callChange();
+    document.querySelector("#city1").addEventListener("change", callChange);
 }; 
-
-//convert celsius to fahrenheit
-
-function changeToFahrenheit(val){
-    let fahrenheit = val * 1.8 + 32;
-    console.log("This is displayed in console:" + fahrenheit);
-    return fahrenheit;
-};
 
 function callChange() {
     console.log("Inside callChange function");
@@ -100,7 +95,7 @@ function change() {
     //temperature F
     let cel = weather_data[currentCity].temperature.slice(0,-2);
     far = changeToFahrenheit(cel);
-    far = far.toPrecision(2);
+    far = far.toPrecision(3);
     far += ` F`;
     document.getElementById("tempnum-f").innerHTML = far;
 
@@ -111,7 +106,7 @@ function change() {
     document.getElementById("precip-number").innerHTML = weather_data[currentCity].precipitation;
 
     //Date and Time
-    dateTimeArr = weather_data[currentCity].dateAndTime.split(",");
+    const dateTimeArr = weather_data[currentCity].dateAndTime.split(",");
 
     /*Time From data
     let time = dateTimeArr[1];
