@@ -43,6 +43,7 @@ let far;
       setNullVal();
     }
   }
+  setInterval(changeWeather, 1000);
 
   function changeWeather() {
     const monthArr = [
