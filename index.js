@@ -2,14 +2,16 @@ import changeToFahrenheit from "./export.js";
 
 var weather_data;
 let far;
-
-fetch("data.json")
-.then(data => data.json())
-.then(result => {
-    weather_data = result;
-    setCity();
-    initCity();
-});
+    
+(function (){
+    fetch("data.json")
+    .then(data => data.json())
+    .then(result => {
+        weather_data = result;
+        setCity();
+        initCity();
+    });
+})()
 
 function setCity() {
     var city = Object.keys(weather_data);
@@ -61,7 +63,7 @@ function changeWeather() {
     ];
 
     var city = Object.keys(weather_data);
-    let currentCity = document.querySelector("#city1").value;
+    var currentCity = document.querySelector("#city1").value;
 
     const sixHoursTemp = [
         parseInt(weather_data[currentCity].temperature.slice(0,-2))
@@ -75,7 +77,7 @@ function changeWeather() {
     var logo = document.getElementById("city-icon");
     logo.src = `./images/Icons for cities/${currentCity}.svg`;
 
-    //Red outline for input box
+    //Black outline for input box
     document.querySelector("#city1").style.borderColor = "black";
 
 
@@ -123,24 +125,23 @@ function changeWeather() {
     let amPm = time.slice(-2);
     time = time.slice(0,2);
     time = parseInt(time) + 1;
-    for(var i = 1; i < 6; i++){
-        if (time == (11 || 12) && amPm == "AM"){
+    function timeChange() {
+        time = time - 12;
+    };
+    function amPmChange() {
+        if ((time == 12) && amPm == "AM"){
             amPm = "PM";
         }
-        else if (time == (11 || 12) && amPm == "PM"){
+        else if ((time == 12) && amPm == "PM"){
             amPm = "AM";
         }
         else if(time > 12)
         {
-            time = time - 12;
-            if (amPm == "AM"){
-                amPm = "PM";
-            }
-            else{
-                amPm = "AM";
-            }
-        };
-
+            timeChange()
+        }
+    };
+    for(var i = 1; i < 6; i++){
+        amPmChange();
         document.getElementById(`hour${i}`).innerHTML = time + amPm;
         time++;
     };
