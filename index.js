@@ -41,7 +41,7 @@ function callChange() {
     for(let i = 0; i < city.length; i++){
         if(cityGiven == city[i]){
             console.log("Inside if");
-            change();
+            changeWeather();
             flag = 1;
         }
     }
@@ -50,7 +50,7 @@ function callChange() {
     }
 }
 
-function change() {
+function changeWeather() {
 
     const monthArr = [
         "Jan",
@@ -67,7 +67,7 @@ function change() {
         "Dec"
     ];
 
-    console.log("Inside change");
+    //console.log("Inside change");
 
     var city = Object.keys(weather_data);
     let currentCity = document.querySelector("#city1").value;
