@@ -11,7 +11,7 @@
     <title> Weather App </title>
     <link rel="shortcut icon" href="./images/faviconv1.png"/>
   </head>
-  <body >
+  <body id="b">
     <!--section 1-->
     <div class="top-section">
       <div class="grid-item1 iconplace">
@@ -151,13 +151,13 @@
       <div class="user-pref">
         <div class="top-cities"><p>Top cities around the world</p></div>
         <div class="symbol1">
-          <img src="./images/Weather Icons/sunnyIcon.svg" alt="Sunny Icon" title="Top cities around the world where it is sunny"/>
+          <img src="./images/Weather Icons/sunnyIcon.svg" alt="Sunny Icon" id="sun-symbol" title="Top cities around the world where it is sunny"/>
         </div>
         <div class="symbol2">
-          <img src="./images/Weather Icons/snowflakeIcon.svg" alt="Snow Icon" title="Top cities around the world where it is snowing" />
+          <img src="./images/Weather Icons/snowflakeIcon.svg" alt="Snow Icon" id="cold-symbol" title="Top cities around the world where it is snowing" />
         </div>
         <div class="symbol3">
-          <img src="./images/Weather Icons/rainyIcon.svg" alt="Rain Icon" title="Top cities around the world where it is raining"/>
+          <img src="./images/Weather Icons/rainyIcon.svg" alt="Rain Icon" id="rain-symbol" title="Top cities around the world where it is raining"/>
         </div>
         <div class="display-top">
           <label for="quantity"> Display Top </label>
@@ -174,9 +174,9 @@
         </div>
       </div>
       
-      <div class="city-card">
-        <div class="row">
-          <div class="card">
+      <div class="city-card" id="city-card">
+        <div class="row" id="row">
+          <div class="card" id="card0">
             <div class="city-name-temp">
               <p><strong> New Delhi</strong></p>
               <p>
@@ -214,7 +214,7 @@
             </div>
           </div>
 
-          <div class="card">
+          <div class="card" id="card1">
             <div class="city-name-temp">
               <p><strong> New Delhi</strong></p>
               <p>
@@ -252,7 +252,7 @@
             </div>
           </div>
 
-          <div class="card">
+          <div class="card" id="card2">
             <div class="city-name-temp">
               <p><strong> New Delhi</strong></p>
               <p>
@@ -290,7 +290,7 @@
             </div>
           </div>
 
-          <div class="card">
+          <div class="card" id="card3">
             <div class="city-name-temp">
               <p><strong> New Delhi</strong></p>
               <p>
@@ -328,7 +328,7 @@
             </div>
           </div>
 
-          <div class="card">
+          <div class="card" id="card4">
             <div class="city-name-temp">
               <p><strong> New Delhi</strong></p>
               <p>
