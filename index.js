@@ -230,9 +230,10 @@ var weatherNow;
   //Function to display cards
   function displayCards(slicedArr) {
     let weatherCard = " ";
+    let cardContent = document.querySelector("#row");
     for (let i = 0; i < slicedArr.length; i++) {
-      var tZone = cities[i].timeZone;
-      var time = new Date().toLocaleString("en-US", {
+      let tZone = cities[i].timeZone;
+      let time = new Date().toLocaleString("en-US", {
         timeZone: tZone,
         timeStyle: "medium",
         hourCycle: "h12",
@@ -247,6 +248,10 @@ var weatherNow;
         monthArr[dateArr[0] - 1] +
         "-" +
         dateArr[2];
+
+      let quant = document.querySelector("#quantity").value;
+      let leftScroll = document.querySelector(".scroll-left");
+      let rightScroll = document.querySelector(".scroll-right");
 
       weatherCard += `<div class="card" id="card-${i}">
         <div class="city-name-temp">
@@ -286,16 +291,16 @@ var weatherNow;
         </div>
       </div>`;
 
-      if(document.querySelector("#quantity").value <= 4){
-        document.querySelector(".scroll-left").style.visibility = "hidden";
-        document.querySelector(".scroll-right").style.visibility = "hidden";
+      if(quant <= 4){
+        leftScroll.style.visibility = "hidden";
+        rightScroll.style.visibility = "hidden";
       }
       else{
-        document.querySelector(".scroll-left").style.visibility = "visible";
-        document.querySelector(".scroll-right").style.visibility = "visible";
+        leftScroll.style.visibility = "visible";
+        rightScroll.style.visibility = "visible";
       }
     }
-    document.querySelector("#row").innerHTML = weatherCard;
+    cardContent.innerHTML = weatherCard;
 
     for (let i = 0; i < slicedArr.length; i++) {
       document.querySelector(
@@ -307,7 +312,7 @@ var weatherNow;
   }
   //Function to display the given number of cities
   function displayQuantity() {
-    let quantityLimit = document.querySelector("#quantity").value;
+    let quantityLimit = quant.value;
     let slicedArr = [];
     if (cities.length > quantityLimit) {
       slicedArr = cities.slice(0, quantityLimit);
@@ -338,13 +343,16 @@ var weatherNow;
   //Function to categorize cities based on weather
   function categorizeCities(weatherGiven) {
     weatherNow = weatherGiven;
-    var cityValues = Object.values(weather_data);
+    let cityValues = Object.values(weather_data);
     cities = [];
+    let sunSymbol = document.querySelector("#sun-symbol");
+    let coldSymbol = document.querySelector("#cold-symbol");
+    let rainSymbol = document.querySelector("#rain-symbol");
     if (weatherNow == "sunny") {
-      document.querySelector("#sun-symbol").style.borderBottom =
+      sunSymbol.style.borderBottom =
         "2px solid #1E90FF";
-      document.querySelector("#cold-symbol").style.borderBottom = "none";
-      document.querySelector("#rain-symbol").style.borderBottom = "none";
+      coldSymbol.style.borderBottom = "none";
+      rainSymbol.style.borderBottom = "none";
 
       for (let i = 0; i < cityValues.length; i++) {
         cities = cityValues.filter(sunnyCategorize);
@@ -360,10 +368,10 @@ var weatherNow;
         }
       }
     } else if (weatherNow == "snowflake") {
-      document.querySelector("#sun-symbol").style.borderBottom = "none";
-      document.querySelector("#cold-symbol").style.borderBottom =
+      sunSymbol.style.borderBottom = "none";
+      coldSymbol.style.borderBottom =
         "2px solid #1E90FF";
-      document.querySelector("#rain-symbol").style.borderBottom = "none";
+      rainSymbol.style.borderBottom = "none";
 
       for (let i = 0; i < cityValues.length; i++) {
         cities = cityValues.filter(snowCategorize);
@@ -380,9 +388,9 @@ var weatherNow;
         }
       }
     } else if (weatherNow == "rainy") {
-      document.querySelector("#sun-symbol").style.borderBottom = "none";
-      document.querySelector("#cold-symbol").style.borderBottom = "none";
-      document.querySelector("#rain-symbol").style.borderBottom =
+      sunSymbol.style.borderBottom = "none";
+      coldSymbol.style.borderBottom = "none";
+      rainSymbol.style.borderBottom =
         "2px solid #1E90FF";
 
       for (let i = 0; i < cityValues.length; i++) {
@@ -401,24 +409,22 @@ var weatherNow;
     sortCities();
   }
 
-  document.querySelector("#sun-symbol").addEventListener("click", () => {
+  sunSymbol.addEventListener("click", () => {
     categorizeCities("sunny");
   });
-  document.querySelector("#cold-symbol").addEventListener("click", () => {
+  coldSymbol.addEventListener("click", () => {
     categorizeCities("snowflake");
   });
-  document.querySelector("#rain-symbol").addEventListener("click", () => {
+  rainSymbol.addEventListener("click", () => {
     categorizeCities("rainy");
   });
-  document.querySelector("#quantity").addEventListener("click", () => {
+  quant.addEventListener("click", () => {
     displayQuantity();
   });
-  document.querySelector(".scroll-left").addEventListener("click", () => {
-    console.log("Inside scroll left");  
+  leftScroll.addEventListener("click", () => {
     document.querySelector(".row").scrollLeft -= 300;
   });
-  document.querySelector(".scroll-right").addEventListener("click", () => {
-    console.log("Inside scroll right"); 
+  rightScroll.addEventListener("click", () => {
     document.querySelector(".row").scrollLeft += 300;
   });
 })();
