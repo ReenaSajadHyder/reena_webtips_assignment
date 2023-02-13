@@ -1,9 +1,25 @@
 import changeToFahrenheit from "./export.js";
 
 (function () {
-  var weather_data;
+  let weather_data;
   let far;
-  var city;
+  let city;
+  const monthArr = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  let weatherNow;
+  let cities;
 
   fetch("data.json")
     .then((data) => data.json())
@@ -16,8 +32,8 @@ import changeToFahrenheit from "./export.js";
 
   function setCity() {
     city = Object.keys(weather_data);
-    var cityOption = document.querySelector("#city");
-    var option = ``;
+    let cityOption = document.querySelector("#city");
+    let option = ``;
     for (let i = 0; i < city.length; i++) {
       option += `<option>${city[i]}</option>`;
     }
@@ -25,14 +41,14 @@ import changeToFahrenheit from "./export.js";
   }
 
   function initCity() {
-    var defaultCity = document.querySelector("#city1");
+    let defaultCity = document.querySelector("#city1");
     defaultCity.value = city[8];
     callChange();
     defaultCity.addEventListener("change", callChange);
   }
 
   function callChange() {
-    let city = Object.keys(weather_data);
+    city = Object.keys(weather_data);
     let cityGiven = document.querySelector("#city1").value;
     let flag = 0;
     for (let i = 0; i < city.length; i++) {
@@ -48,36 +64,22 @@ import changeToFahrenheit from "./export.js";
   setInterval(changeWeather, 1000);
 
   function changeWeather() {
-    const monthArr = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
 
-    var curCity = document.querySelector("#city1");
-    var currentCity = curCity.value;
-    var logo = document.getElementById("city-icon");
-    var tempC = document.getElementById("tempnum-c");
-    var tempF = document.getElementById("tempnum-f");
-    var humNum = document.getElementById("hum-num");
-    var precipNum = document.getElementById("precip-number");
-    var tZone = weather_data[currentCity].timeZone;
-    var time = new Date().toLocaleString("en-US", {
+    let curCity = document.querySelector("#city1");
+    let currentCity = curCity.value;
+    let logo = document.getElementById("city-icon");
+    let tempC = document.getElementById("tempnum-c");
+    let tempF = document.getElementById("tempnum-f");
+    let humNum = document.getElementById("hum-num");
+    let precipNum = document.getElementById("precip-number");
+    let tZone = weather_data[currentCity].timeZone;
+    let time = new Date().toLocaleString("en-US", {
       timeZone: tZone,
       timeStyle: "medium",
       hourCycle: "h12",
     });
-    var realTime = document.getElementById("time");
-    var date = document.getElementById("date");
+    let realTime = document.getElementById("time");
+    let date = document.getElementById("date");
 
 
     const sixHoursTemp = [
@@ -186,14 +188,14 @@ import changeToFahrenheit from "./export.js";
   }
 
   function setNullVal() {
-    var curCity = document.querySelector("#city1");
-    var logo = document.getElementById("city-icon");
-    var tempC = document.getElementById("tempnum-c");
-    var tempF = document.getElementById("tempnum-f");
-    var humNum = document.getElementById("hum-num");
-    var precipNum = document.getElementById("precip-number");
-    var realTime = document.getElementById("time");
-    var date = document.getElementById("date");
+    let curCity = document.querySelector("#city1");
+    let logo = document.getElementById("city-icon");
+    let tempC = document.getElementById("tempnum-c");
+    let tempF = document.getElementById("tempnum-f");
+    let humNum = document.getElementById("hum-num");
+    let precipNum = document.getElementById("precip-number");
+    let realTime = document.getElementById("time");
+    let date = document.getElementById("date");
 
     //Red outline for input box
     curCity.style.borderColor = "red";
@@ -259,9 +261,9 @@ import changeToFahrenheit from "./export.js";
         "-" +
         dateArr[2];
 
-      let quant = document.querySelector("#quantity").value;
-      let leftScroll = document.querySelector(".scroll-left");
-      let rightScroll = document.querySelector(".scroll-right");
+      //let leftScroll = document.querySelector(".scroll-left");
+      //let rightScroll = document.querySelector(".scroll-right");
+      //let quant = document.querySelector("#quantity").value;
 
       weatherCard += `<div class="card" id="card-${i}">
         <div class="city-name-temp">
@@ -301,13 +303,13 @@ import changeToFahrenheit from "./export.js";
         </div>
       </div>`;
 
-      if(quant <= 4){
-        leftScroll.style.visibility = "hidden";
-        rightScroll.style.visibility = "hidden";
+      if(document.querySelector("#quantity").value <= 4){
+        document.querySelector(".scroll-left").style.visibility = "hidden";
+        document.querySelector(".scroll-right").style.visibility = "hidden";
       }
       else{
-        leftScroll.style.visibility = "visible";
-        rightScroll.style.visibility = "visible";
+        document.querySelector(".scroll-left").style.visibility = "visible";
+        document.querySelector(".scroll-right").style.visibility = "visible";
       }
     }
     cardContent.innerHTML = weatherCard;
@@ -322,6 +324,7 @@ import changeToFahrenheit from "./export.js";
   }
   //Function to display the given number of cities
   function displayQuantity() {
+    let quant = document.querySelector("#quantity");
     let quantityLimit = quant.value;
     let slicedArr = [];
     if (cities.length > quantityLimit) {
@@ -365,8 +368,6 @@ import changeToFahrenheit from "./export.js";
       rainSymbol.style.borderBottom = "none";
 
       for (let i = 0; i < cityValues.length; i++) {
-        cities = cityValues.filter(sunnyCategorize);
-        function sunnyCategorize(){
           if (
             parseInt(cityValues[i].temperature) > 29 &&
             parseInt(cityValues[i].humidity) < 50 &&
@@ -374,8 +375,6 @@ import changeToFahrenheit from "./export.js";
           ) {
             cities.push(cityValues[i]);
           };
-          return cities;
-        }
       }
     } else if (weatherNow == "snowflake") {
       sunSymbol.style.borderBottom = "none";
@@ -384,8 +383,6 @@ import changeToFahrenheit from "./export.js";
       rainSymbol.style.borderBottom = "none";
 
       for (let i = 0; i < cityValues.length; i++) {
-        cities = cityValues.filter(snowCategorize);
-        function snowCategorize(){
           if (
             parseInt(cityValues[i].temperature) > 20 &&
             parseInt(cityValues[i].temperature) < 28 &&
@@ -394,8 +391,6 @@ import changeToFahrenheit from "./export.js";
           ) {
             cities.push(cityValues[i]);
           }
-          return cities;
-        }
       }
     } else if (weatherNow == "rainy") {
       sunSymbol.style.borderBottom = "none";
@@ -404,37 +399,33 @@ import changeToFahrenheit from "./export.js";
         "2px solid #1E90FF";
 
       for (let i = 0; i < cityValues.length; i++) {
-        cities = cityValues.filter(rainCategorize);
-        function rainCategorize() {
           if (
             parseInt(cityValues[i].temperature) < 20 &&
             parseInt(cityValues[i].humidity) >= 50
           ) {
             cities.push(cityValues[i]);
           }
-          return cities;
-        }
       }
     }
     sortCities();
   }
 
-  sunSymbol.addEventListener("click", () => {
+  document.querySelector("#sun-symbol").addEventListener("click", () => {
     categorizeCities("sunny");
   });
-  coldSymbol.addEventListener("click", () => {
+  document.querySelector("#cold-symbol").addEventListener("click", () => {
     categorizeCities("snowflake");
   });
-  rainSymbol.addEventListener("click", () => {
+  document.querySelector("#rain-symbol").addEventListener("click", () => {
     categorizeCities("rainy");
   });
-  quant.addEventListener("click", () => {
+  document.querySelector("#quantity").addEventListener("click", () => {
     displayQuantity();
   });
-  leftScroll.addEventListener("click", () => {
+  document.querySelector(".scroll-left").addEventListener("click", () => {
     document.querySelector(".row").scrollLeft -= 300;
   });
-  rightScroll.addEventListener("click", () => {
+  document.querySelector(".scroll-right").addEventListener("click", () => {
     document.querySelector(".row").scrollLeft += 300;
   });
 })();
