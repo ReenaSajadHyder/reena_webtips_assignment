@@ -1,182 +1,165 @@
 .middle-section {
-  display: grid;
-  background-color: black;
-  border-top-right-radius: 35px;
-  border-top-left-radius: 35px;
-  overflow: hidden;
-  padding: 0;
-}
-
+    background-color: black;
+    border-top-left-radius: 35px;
+    border-top-right-radius: 35px;
+    display: grid;
+    overflow: hidden;
+    padding: 0;
+  }
 .user-pref {
-  display: grid;
-  grid-template-columns: 70% 5% 5% 5% 15%;
-  color: #ffffff;
-  font-size: 23px;
-}
-
+    color: #ffffff;
+    display: grid;
+    font-size: 23px;
+    grid-template-columns: 70% 5% 5% 5% 15%;
+  }
 .top-cities {
-  padding-top: 2%;
-  padding-bottom: 4%;
-  padding-left: 50%;
-}
-
+    padding-bottom: 4%;
+    padding-left: 50%;
+    padding-top: 2%;
+  }
 .symbol1,
 .symbol2,
 .symbol3 {
-  padding-top: 29%;
-  cursor: pointer;
-  font-family: "Roboto", sans-serif;
-}
-
+    cursor: pointer;
+    font-family: "Roboto", sans-serif;
+    padding-top: 29%;
+  }
 .display-top {
-  font-size: 17px;
-  padding-top: 13%;
-}
-
+    font-size: 17px;
+    padding-top: 13%;
+  }
 .display-top-input {
-  background-color: rgba(131, 131, 131, 0.25);
-  color: #ffffff;
-}
-
+    background-color: rgba(131, 131, 131, 0.25);
+    color: #ffffff;
+  }
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-  opacity: 1;
-}
-
+    opacity: 1;
+  }
+.scroll-right{
+    align-self: center;
+    background-color: white;
+    border-radius: 50%;
+    color: #181818;
+    cursor: pointer;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    padding: 15px;
+    position: absolute;
+    right: 5px;
+  }
 .city-card {
-  margin-left: 3%;
-  margin-right: 3%;
-}
-
+    margin-left: 3%;
+    margin-right: 3%;
+  }
 .row {
-  align-items: stretch;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  flex-wrap: nowrap;
-  grid-auto-flow: column;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  column-gap: 30px;
-}
-
+    align-items: stretch;
+    column-gap: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    grid-auto-flow: column;
+    justify-content: flex-start;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
 .row::-webkit-scrollbar {
-  display: none;
-}
-
+    display: none;
+  }
 .card {
-  padding: 1rem;
-  border: 5%;
-  min-width: 20%;
-  height: 280px;
-  margin-bottom: 4rem;
-  flex-basis: 25%;
-  background-color: #181818;
-  background-image: url(./images/karachi.svg);
-  background-position: bottom right;
-  background-repeat: no-repeat;
-  background-size: 50%;
-  border-radius: 10px;
-  transition: 0.2s;
-}
-
+    background-color: #181818;
+    background-image: url(./images/karachi.svg);
+    background-position: bottom right;
+    background-repeat: no-repeat;
+    background-size: 50%;
+    border-radius: 10px;
+    border: 5%;
+    flex-basis: 25%;
+    height: 280px;
+    margin-bottom: 4rem;
+    min-width: 20%;
+    padding: 1rem;
+    transition: 0.2s;
+  }
 .card:hover {
-  transform: scale(1.05);
-  border-radius: 10px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  z-index: 1;
-}
-
+    border-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    transform: scale(1.05);
+    z-index: 1;
+  }
 .city-name-temp {
-  display: flex;
-  justify-content: space-between;
-  color: #ffffff;
-  font-size: 25px;
-}
-
+    color: #ffffff;
+    display: flex;
+    font-size: 25px;
+    justify-content: space-between;
+  }
 .sunny-icon {
-  height: 25px;
-}
-
+    height: 25px;
+  }
 .td {
-  color: #ffffff;
-  font-size: 15px;
-  padding-top: 5%;
-}
-
+    color: #ffffff;
+    font-size: 15px;
+    padding-top: 5%;
+  }
 .hp {
-  color: #ffffff;
-  font-size: 15px;
-  padding-top: 5%;
-}
-
+    color: #ffffff;
+    font-size: 15px;
+    padding-top: 5%;
+  }
 @media (max-width: 950px) {
   .user-pref {
-    display: grid;
-    grid-template-columns: 36% 10% 10% 10% 34%;
-    color: #ffffff;
-    font-size: 14px;
-  }
-
+      color: #ffffff;
+      display: grid;
+      font-size: 14px;
+      grid-template-columns: 36% 10% 10% 10% 34%;
+    }
   .top-cities {
-    padding-left: 10%;
-    padding-top: 10%;
-    font-size: 20px;
-  }
+      font-size: 20px;
+      padding-left: 10%;
+      padding-top: 10%;
+    }
   .display-top {
-    font-size: 15px;
-    padding-top: 13%;
-    padding-bottom: 13%;
-  }
-
+      font-size: 15px;
+      padding-bottom: 13%;
+      padding-top: 13%;
+    }
   .card {
-    height: 180px;
-  }
-
+      height: 180px;
+    }
   .city-name-temp {
-    font-size: 18px;
-  }
-
+      font-size: 18px;
+    }
   .sunny-icon {
-    height: 18px;
-  }
-
+      height: 18px;
+    }
   .td {
-    font-size: 15px;
-  }
-
+      font-size: 15px;
+    }
   .hp {
-    font-size: 15px;
-  }
-
+      font-size: 15px;
+    }
   .across-continents {
-    grid-template-columns: 55% 25% 20%;
-    font-size: 23px;
-    padding-left: 17px;
-  }
-
+      font-size: 23px;
+      grid-template-columns: 55% 25% 20%;
+      padding-left: 17px;
+    }
   .continent-name {
-    font-size: 20px;
-  }
-
+      font-size: 20px;
+    }
   .temperature {
-    font-size: 20px;
-  }
-
+      font-size: 20px;
+    }
   .cont-name {
-    font-size: 18px;
-  }
-
+      font-size: 18px;
+    }
   .cont-temp {
-    font-size: 20px;
-  }
-
+      font-size: 20px;
+    }
   .city-time {
-    font-size: 19px;
-  }
-
+      font-size: 19px;
+    }
   .cont-hum {
-    font-size: 19px;
+      font-size: 19px;
+    }
   }
-}
