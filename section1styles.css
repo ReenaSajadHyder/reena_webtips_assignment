@@ -103,6 +103,10 @@
   flex-wrap: wrap;
 }
 
+.alt-line{
+  color: #C4C4C4;
+}
+
 .icon {
   display: flex;
   justify-content: space-between;
@@ -110,13 +114,13 @@
   flex-wrap: wrap;
 }
 
-.precip-num {
+.temperature-num {
   display: flex;
   justify-content: space-between;
   color: #ffffff;
   font-size: 20px;
   padding-top: 1%;
-  padding-left: 2%;
+  padding-left: 1.25%;
   padding-right: 2%;
   flex-wrap: wrap;
 }
