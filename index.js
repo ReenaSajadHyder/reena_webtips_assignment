@@ -1,6 +1,6 @@
 import changeToFahrenheit from "./export.js";
 
-var weather_data;
+let weather_data;
 let far;
 const monthArr = [
   "Jan",
@@ -16,8 +16,8 @@ const monthArr = [
   "Nov",
   "Dec",
 ];
-var cities = [];
-var weatherNow;
+let cities = [];
+let weatherNow;
 
 (function () {
   fetch("data.json")
@@ -30,9 +30,8 @@ var weatherNow;
     });
 
   function setCity() {
-    var city = Object.keys(weather_data);
-    var inputdata = document.getElementById("city").value;
-    var option = ``;
+    let city = Object.keys(weather_data);
+    let option = ``;
     for (let i = 0; i < city.length; i++) {
       option += `<option>${city[i]}</option>`;
     }
@@ -40,14 +39,14 @@ var weatherNow;
   }
 
   function initCity() {
-    var city = Object.keys(weather_data);
+    let city = Object.keys(weather_data);
     document.querySelector("#city1").value = city[5];
     callChange();
     document.querySelector("#city1").addEventListener("change", callChange);
   }
 
   function callChange() {
-    var city = Object.keys(weather_data);
+    let city = Object.keys(weather_data);
     let cityGiven = document.querySelector("#city1").value;
     let flag = 0;
     for (let i = 0; i < city.length; i++) {
@@ -63,9 +62,9 @@ var weatherNow;
   setInterval(changeWeather, 1000);
 
   function changeWeather() {
-    var city = Object.keys(weather_data);
-    var curCity = document.querySelector("#city1");
-    var currentCity = document.querySelector("#city1").value;
+    let city = Object.keys(weather_data);
+    let curCity = document.querySelector("#city1");
+    let currentCity = document.querySelector("#city1").value;
 
     const sixHoursTemp = [
       parseInt(weather_data[currentCity].temperature.slice(0, -2)),
@@ -76,7 +75,7 @@ var weatherNow;
     sixHoursTemp[5] = parseInt(weather_data[currentCity].temperature);
 
     //city icon
-    var logo = document.getElementById("city-icon");
+    let logo = document.getElementById("city-icon");
     logo.src = `./images/Icons for cities/${currentCity}.svg`;
 
     //Black outline for input box
@@ -105,8 +104,8 @@ var weatherNow;
     const dateTimeArr = weather_data[currentCity].dateAndTime.split(",");
 
     //Real Time
-    var tZone = weather_data[currentCity].timeZone;
-    var time = new Date().toLocaleString("en-US", {
+    let tZone = weather_data[currentCity].timeZone;
+    let time = new Date().toLocaleString("en-US", {
       timeZone: tZone,
       timeStyle: "medium",
       hourCycle: "h12",
@@ -141,7 +140,7 @@ var weatherNow;
         timeChange();
       }
     }
-    for (var i = 1; i < 6; i++) {
+    for (let i = 1; i < 6; i++) {
       amPmChange();
       document.getElementById(`hour${i}`).innerHTML = time + amPm;
       time++;
@@ -182,13 +181,13 @@ var weatherNow;
   }
 
   function setNullVal() {
-    var curCity = document.querySelector("#city1");
+    let curCity = document.querySelector("#city1");
 
     //Red outline for input box
     curCity.style.borderColor = "red";
 
     //city logo
-    var logo = document.getElementById("city-icon");
+    let logo = document.getElementById("city-icon");
     logo.src = `./images/Icons for cities/defaultIcon.png`;
 
     //temperature C
