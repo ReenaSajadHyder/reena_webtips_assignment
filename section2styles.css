@@ -1,165 +1,154 @@
 .middle-section {
-    background-color: black;
-    border-top-left-radius: 35px;
-    border-top-right-radius: 35px;
-    display: grid;
-    overflow: hidden;
-    padding: 0;
-  }
+  background-color: black;
+  border-top-left-radius: 35px;
+  border-top-right-radius: 35px;
+  display: grid;
+  padding: 0;
+}
 .user-pref {
-    color: #ffffff;
-    display: grid;
-    font-size: 23px;
-    grid-template-columns: 70% 5% 5% 5% 15%;
-  }
+  color: #ffffff;
+  display: grid;
+  font-size: 23px;
+  grid-template-columns: 70% 5% 5% 5% 15%;
+  grid-auto-columns: 100%;
+}
 .top-cities {
-    padding-bottom: 4%;
-    padding-left: 50%;
-    padding-top: 2%;
-  }
+  padding-bottom: 4%;
+  padding-left: 50%;
+  padding-top: 2%;
+}
 .symbol1,
 .symbol2,
 .symbol3 {
-    cursor: pointer;
-    font-family: "Roboto", sans-serif;
-    padding-top: 29%;
-  }
+  cursor: pointer;
+  font-family: "Roboto", sans-serif;
+  padding-top: 29%;
+}
 .display-top {
-    font-size: 17px;
-    padding-top: 13%;
-  }
+  font-size: 17px;
+  padding-top: 13%;
+}
 .display-top-input {
-    background-color: rgba(131, 131, 131, 0.25);
-    color: #ffffff;
-  }
+  background-color: rgba(131, 131, 131, 0.25);
+  color: #ffffff;
+}
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-    opacity: 1;
-  }
-.scroll-right{
-    align-self: center;
-    background-color: white;
-    border-radius: 50%;
-    color: #181818;
-    cursor: pointer;
-    margin-bottom: 5px;
-    margin-right: 5px;
-    padding: 15px;
-    position: absolute;
-    right: 5px;
-  }
-.city-card {
-    margin-left: 3%;
-    margin-right: 3%;
-  }
+  opacity: 1;
+}
+.city-card{
+  overflow-x: scroll;
+}
+.scroll-left {
+  background-color: white;
+  border-radius: 50%;
+  color: #181818;
+  cursor: pointer;
+  margin-left: 5px;
+  padding: 15px;
+  position: absolute; 
+  top:60%;
+}
+.scroll-right {
+  background-color: white;
+  border-radius: 50%;
+  color: #181818;
+  cursor: pointer;
+  padding: 15px;
+  position: absolute;
+  top:60%;
+  right: 5px;
+  z-index: 1;
+}
+
 .row {
-    align-items: stretch;
-    column-gap: 30px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    grid-auto-flow: column;
-    justify-content: flex-start;
-    overflow-x: scroll;
-    overflow-y: hidden;
-  }
+  column-gap: 30px;
+  display: flex;
+  grid-auto-flow: column;
+  justify-content: flex-start;
+  position: relative;
+  overflow-x: scroll;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
 .row::-webkit-scrollbar {
-    display: none;
-  }
+  display: none;
+}
+
+.city-card::-webkit-scrollbar {
+  display: none;
+}
 .card {
-    background-color: #181818;
-    background-image: url(./images/karachi.svg);
-    background-position: bottom right;
-    background-repeat: no-repeat;
-    background-size: 50%;
-    border-radius: 10px;
-    border: 5%;
-    flex-basis: 25%;
-    height: 280px;
-    margin-bottom: 4rem;
-    min-width: 20%;
-    padding: 1rem;
-    transition: 0.2s;
-  }
+  background-color: #181818;
+  background-image: url(./images/karachi.svg);
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  background-size: 50%;
+  border-radius: 10px;
+  border: 5%;
+  height: 300px;
+  margin-bottom: 4rem;
+  min-width: 300px;
+  padding: 1rem;
+  transition: 0.2s;
+}
 .card:hover {
-    border-radius: 10px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    transform: scale(1.05);
-    z-index: 1;
-  }
+  border-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  transform: scale(1.05);
+  z-index: 1;
+}
 .city-name-temp {
-    color: #ffffff;
-    display: flex;
-    font-size: 25px;
-    justify-content: space-between;
-  }
+  color: #ffffff;
+  display: flex;
+  font-size: 25px;
+  justify-content: space-between;
+}
 .sunny-icon {
-    height: 25px;
-  }
+  height: 25px;
+}
 .td {
-    color: #ffffff;
-    font-size: 15px;
-    padding-top: 5%;
-  }
+  color: #ffffff;
+  font-size: 15px;
+  padding-top: 5%;
+}
 .hp {
-    color: #ffffff;
-    font-size: 15px;
-    padding-top: 5%;
-  }
+  color: #ffffff;
+  font-size: 15px;
+  padding-top: 5%;
+}
 @media (max-width: 950px) {
   .user-pref {
-      color: #ffffff;
-      display: grid;
-      font-size: 14px;
-      grid-template-columns: 36% 10% 10% 10% 34%;
-    }
-  .top-cities {
-      font-size: 20px;
-      padding-left: 10%;
-      padding-top: 10%;
-    }
-  .display-top {
-      font-size: 15px;
-      padding-bottom: 13%;
-      padding-top: 13%;
-    }
-  .card {
-      height: 180px;
-    }
-  .city-name-temp {
-      font-size: 18px;
-    }
-  .sunny-icon {
-      height: 18px;
-    }
-  .td {
-      font-size: 15px;
-    }
-  .hp {
-      font-size: 15px;
-    }
-  .across-continents {
-      font-size: 23px;
-      grid-template-columns: 55% 25% 20%;
-      padding-left: 17px;
-    }
-  .continent-name {
-      font-size: 20px;
-    }
-  .temperature {
-      font-size: 20px;
-    }
-  .cont-name {
-      font-size: 18px;
-    }
-  .cont-temp {
-      font-size: 20px;
-    }
-  .city-time {
-      font-size: 19px;
-    }
-  .cont-hum {
-      font-size: 19px;
-    }
+    color: #ffffff;
+    display: grid;
+    font-size: 14px;
+    grid-template-columns: 36% 10% 10% 10% 34%;
   }
+  .top-cities {
+    font-size: 20px;
+    padding-left: 10%;
+    padding-top: 10%;
+  }
+  .display-top {
+    font-size: 15px;
+    padding-bottom: 13%;
+    padding-top: 13%;
+  }
+  .card {
+    height: 250px;
+  }
+  .city-name-temp {
+    font-size: 18px;
+  }
+  .sunny-icon {
+    height: 18px;
+  }
+  .td {
+    font-size: 15px;
+  }
+  .hp {
+    font-size: 15px;
+  }
+}

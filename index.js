@@ -285,6 +285,15 @@ var weatherNow;
           </p>
         </div>
       </div>`;
+
+      if(document.querySelector("#quantity").value <= 4){
+        document.querySelector(".scroll-left").style.visibility = "hidden";
+        document.querySelector(".scroll-right").style.visibility = "hidden";
+      }
+      else{
+        document.querySelector(".scroll-left").style.visibility = "visible";
+        document.querySelector(".scroll-right").style.visibility = "visible";
+      }
     }
     document.querySelector("#row").innerHTML = weatherCard;
 
@@ -331,7 +340,6 @@ var weatherNow;
     weatherNow = weatherGiven;
     var cityValues = Object.values(weather_data);
     cities = [];
-
     if (weatherNow == "sunny") {
       document.querySelector("#sun-symbol").style.borderBottom =
         "2px solid #1E90FF";
@@ -339,12 +347,16 @@ var weatherNow;
       document.querySelector("#rain-symbol").style.borderBottom = "none";
 
       for (let i = 0; i < cityValues.length; i++) {
-        if (
-          parseInt(cityValues[i]["temperature"]) > 29 &&
-          parseInt(cityValues[i].humidity) < 50 &&
-          parseInt(cityValues[i].precipitation) >= 50
-        ) {
-          cities.push(cityValues[i]);
+        cities = cityValues.filter(sunnyCategorize);
+        function sunnyCategorize(){
+          if (
+            parseInt(cityValues[i].temperature) > 29 &&
+            parseInt(cityValues[i].humidity) < 50 &&
+            parseInt(cityValues[i].precipitation) >= 50
+          ) {
+            cities.push(cityValues[i]);
+          };
+          return cities;
         }
       }
     } else if (weatherNow == "snowflake") {
@@ -354,13 +366,17 @@ var weatherNow;
       document.querySelector("#rain-symbol").style.borderBottom = "none";
 
       for (let i = 0; i < cityValues.length; i++) {
-        if (
-          parseInt(cityValues[i].temperature) > 20 &&
-          parseInt(cityValues[i].temperature) < 28 &&
-          parseInt(cityValues[i].humidity) > 50 &&
-          parseInt(cityValues[i].precipitation) < 50
-        ) {
-          cities.push(cityValues[i]);
+        cities = cityValues.filter(snowCategorize);
+        function snowCategorize(){
+          if (
+            parseInt(cityValues[i].temperature) > 20 &&
+            parseInt(cityValues[i].temperature) < 28 &&
+            parseInt(cityValues[i].humidity) > 50 &&
+            parseInt(cityValues[i].precipitation) < 50
+          ) {
+            cities.push(cityValues[i]);
+          }
+          return cities;
         }
       }
     } else if (weatherNow == "rainy") {
@@ -370,11 +386,15 @@ var weatherNow;
         "2px solid #1E90FF";
 
       for (let i = 0; i < cityValues.length; i++) {
-        if (
-          parseInt(cityValues[i].temperature) < 20 &&
-          parseInt(cityValues[i].humidity) >= 50
-        ) {
-          cities.push(cityValues[i]);
+        cities = cityValues.filter(rainCategorize);
+        function rainCategorize() {
+          if (
+            parseInt(cityValues[i].temperature) < 20 &&
+            parseInt(cityValues[i].humidity) >= 50
+          ) {
+            cities.push(cityValues[i]);
+          }
+          return cities;
         }
       }
     }
@@ -392,5 +412,13 @@ var weatherNow;
   });
   document.querySelector("#quantity").addEventListener("click", () => {
     displayQuantity();
+  });
+  document.querySelector(".scroll-left").addEventListener("click", () => {
+    console.log("Inside scroll left");  
+    document.querySelector(".row").scrollLeft -= 300;
+  });
+  document.querySelector(".scroll-right").addEventListener("click", () => {
+    console.log("Inside scroll right"); 
+    document.querySelector(".row").scrollLeft += 300;
   });
 })();
