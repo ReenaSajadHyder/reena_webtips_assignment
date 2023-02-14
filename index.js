@@ -262,9 +262,7 @@ import changeToFahrenheit from "./export.js";
         "-" +
         dateArr[2];
 
-      //let leftScroll = document.querySelector(".scroll-left");
-      //let rightScroll = document.querySelector(".scroll-right");
-      //let quant = document.querySelector("#quantity").value;
+      
 
       weatherCard += `<div class="card" id="card-${i}">
         <div class="city-name-temp">
@@ -321,29 +319,30 @@ import changeToFahrenheit from "./export.js";
     let quant = document.querySelector("#quantity");
     let quantityLimit = quant.value;
     let slicedArr = [];
+    let leftScroll = document.querySelector(".scroll-left");
+    let rightScroll = document.querySelector(".scroll-right");
+    let cardAlignment = document.querySelector("#row");
     if (cities.length > quantityLimit) {
       slicedArr = cities.slice(0, quantityLimit);
     } else {
       slicedArr = cities;
     }
     if(slicedArr.length <= 4){
-      document.querySelector(".scroll-left").style.visibility = "hidden";
-      document.querySelector(".scroll-right").style.visibility = "hidden";
+      leftScroll.style.visibility = "hidden";
+      rightScroll.style.visibility = "hidden";
     }
     else{
-      document.querySelector(".scroll-left").style.visibility = "";
-      document.querySelector(".scroll-right").style.visibility = "";
+      leftScroll.style.visibility = "";
+      rightScroll.style.visibility = "";
     }
 
     if(slicedArr.length > 4) 
     {
-      document.querySelector("#row").style.justifyContent = "flex-start";
+      cardAlignment.style.justifyContent = "flex-start";
     }
     else{
-      document.querySelector("#row").style.justifyContent = "center";
+      cardAlignment.style.justifyContent = "center";
     }
-
-
     displayCards(slicedArr);
   }
 
@@ -422,7 +421,6 @@ import changeToFahrenheit from "./export.js";
   document.querySelector("#rain-symbol").addEventListener("click", () => {
     categorizeCities("rainy");
   });
- 
   document.querySelector("#quantity").addEventListener("click", () => {
     displayQuantity();
   });
