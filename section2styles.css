@@ -24,6 +24,17 @@
   font-family: "Roboto", sans-serif;
   padding-top: 29%;
 }
+.sun-symbol,
+.snow-symbol,
+.rain-symbol{
+  transition: 0.2s;
+}
+.sun-symbol:hover,
+.snow-symbol:hover,
+.rain-symbol:hover{
+  transform: scale(1.5);
+}
+
 .display-top {
   font-size: 17px;
   padding-top: 13%;
