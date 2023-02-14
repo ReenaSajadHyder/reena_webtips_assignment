@@ -241,6 +241,7 @@ import changeToFahrenheit from "./export.js";
 
   //Function to display cards
   function displayCards(slicedArr) {
+
     let weatherCard = " ";
     let cardContent = document.querySelector("#row");
     for (let i = 0; i < slicedArr.length; i++) {
@@ -303,10 +304,7 @@ import changeToFahrenheit from "./export.js";
         </div>
       </div>`;
     }
-    if(slicedArr.length > 4) 
-    {
-      document.querySelector("#row").style.justifyContent = "flex-start";
-    }
+
     cardContent.innerHTML = weatherCard;
 
 
@@ -336,6 +334,16 @@ import changeToFahrenheit from "./export.js";
       document.querySelector(".scroll-left").style.visibility = "";
       document.querySelector(".scroll-right").style.visibility = "";
     }
+
+    if(slicedArr.length > 4) 
+    {
+      document.querySelector("#row").style.justifyContent = "flex-start";
+    }
+    else{
+      document.querySelector("#row").style.justifyContent = "center";
+    }
+
+
     displayCards(slicedArr);
   }
 

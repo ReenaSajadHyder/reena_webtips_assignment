@@ -54,27 +54,28 @@ input[type="number"]::-webkit-outer-spin-button {
   opacity: 1;
 }
 .city-card{
-  overflow-x: scroll;
+  overflow-x: scroll; 
 }
 .scroll-left {
+  align-self: center;
   background-color: white;
   border-radius: 50%;
   color: #181818;
   cursor: pointer;
-  margin-left: 5px;
   padding: 15px;
-  position: absolute; 
-  top:60%;
+  position: absolute;  
+  left:5px;
+  z-index: 1;
 }
 .scroll-right {
+  align-self: center;
   background-color: white;
   border-radius: 50%;
   color: #181818;
   cursor: pointer;
   padding: 15px;
-  position: absolute;
-  top:60%;
-  right: 5px;
+  position: absolute; 
+  right:5px;
   z-index: 1;
 }
 
@@ -83,7 +84,6 @@ input[type="number"]::-webkit-outer-spin-button {
   display: flex;
   grid-auto-flow: column;
   justify-content: center;
-  position: relative;
   overflow-x: scroll;
   margin-left: 5%;
   margin-right: 5%;
@@ -154,14 +154,7 @@ input[type="number"]::-webkit-outer-spin-button {
     padding-bottom: 13%;
     padding-top: 13%;
   }
-  .scroll-left {
-    top:75%;
-    z-index: 1;
-  }
-  .scroll-right {
-    top:75%;
-    z-index: 1;
-  }
+
   .card {
     height: 250px;
     width: 250px;
@@ -179,3 +172,5 @@ input[type="number"]::-webkit-outer-spin-button {
     font-size: 15px;
   }
 }
+
+
