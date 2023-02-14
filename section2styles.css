@@ -25,13 +25,18 @@
   padding-top: 29%;
 }
 .sun-symbol,
-.snow-symbol,
+.cold-symbol,
 .rain-symbol{
   transition: 0.2s;
 }
 .sun-symbol:hover,
-.snow-symbol:hover,
+.cold-symbol:hover,
 .rain-symbol:hover{
+  transform: scale(1.5);
+}
+
+.active{
+  border-bottom: 2px solid #1E90FF;
   transform: scale(1.5);
 }
 

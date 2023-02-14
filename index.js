@@ -360,12 +360,11 @@ import changeToFahrenheit from "./export.js";
     let sunSymbol = document.querySelector("#sun-symbol");
     let coldSymbol = document.querySelector("#cold-symbol");
     let rainSymbol = document.querySelector("#rain-symbol");
+    sunSymbol.classList.remove("active")
+    coldSymbol.classList.remove("active")
+    rainSymbol.classList.remove("active")
     if (weatherNow == "sunny") {
-      sunSymbol.style.borderBottom =
-        "2px solid #1E90FF";
-      coldSymbol.style.borderBottom = "none";
-      rainSymbol.style.borderBottom = "none";
-
+      sunSymbol.classList.add("active");
       for (let i = 0; i < cityValues.length; i++) {
           if (
             parseInt(cityValues[i].temperature) > 29 &&
@@ -376,11 +375,7 @@ import changeToFahrenheit from "./export.js";
           };
       }
     } else if (weatherNow == "snowflake") {
-      sunSymbol.style.borderBottom = "none";
-      coldSymbol.style.borderBottom =
-        "2px solid #1E90FF";
-      rainSymbol.style.borderBottom = "none";
-
+      coldSymbol.classList.add("active");
       for (let i = 0; i < cityValues.length; i++) {
           if (
             parseInt(cityValues[i].temperature) > 20 &&
@@ -392,11 +387,7 @@ import changeToFahrenheit from "./export.js";
           }
       }
     } else if (weatherNow == "rainy") {
-      sunSymbol.style.borderBottom = "none";
-      coldSymbol.style.borderBottom = "none";
-      rainSymbol.style.borderBottom =
-        "2px solid #1E90FF";
-
+      rainSymbol.classList.add("active");
       for (let i = 0; i < cityValues.length; i++) {
           if (
             parseInt(cityValues[i].temperature) < 20 &&
@@ -418,6 +409,7 @@ import changeToFahrenheit from "./export.js";
   document.querySelector("#rain-symbol").addEventListener("click", () => {
     categorizeCities("rainy");
   });
+ 
   document.querySelector("#quantity").addEventListener("click", () => {
     displayQuantity();
   });
