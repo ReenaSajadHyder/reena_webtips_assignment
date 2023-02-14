@@ -18,6 +18,14 @@
   cursor: pointer;
   font-size: 25px;
   padding-top: 3%;
+
+}
+
+.cont-arrow,
+.temp-arrow {
+  height: 25px;
+  width: 25px;
+  padding-left: 5px;
 }
 .continent-city {
   display: grid;
@@ -52,6 +60,7 @@
   text-align: end;
 }
 .city-time {
+  display: flex;
   font-size: 24px;
   text-align: start;
 }
@@ -65,11 +74,15 @@
     grid-template-columns: 55% 25% 20%;
     padding-left: 17px;
   }
-  .continent-name {
-    font-size: 20px;
-  }
+  .continent-name,
   .temperature {
     font-size: 20px;
+  }
+  .cont-arrow,
+  .temp-arrow {
+  height: 20px;
+  width: 20px;
+  padding-left: 4px;
   }
   .cont-name {
     font-size: 18px;
