@@ -430,6 +430,7 @@ import changeToFahrenheit from "./export.js";
   //Function to display the continent cards
   function displayContinents() {
     let continentCards = "";
+    let continentCity = document.querySelector(".continent-city");
     for(let i = 0; i < 12; i++){
       let curTime = new Date().toLocaleString("en-US", {
         timeZone: cityValues[i].timeZone,
@@ -454,19 +455,17 @@ import changeToFahrenheit from "./export.js";
       <img src="./images/Weather Icons/humidityIcon.svg" alt="Humidity Icon"></div>
       </div>`
     }
-    document.querySelector(".continent-city").innerHTML = continentCards;
+    continentCity.innerHTML = continentCards;
   }
 
   //Function to sort continents by alphabetical order
   function sortContinents(){
-    console.log("Inside sortContinents");
     cityValues = Object.values(weather_data);
     if(continentOrder == 0){
       if(temperatureOrder == 0){
         {    
           cityValues.sort((a, b) => 
-          {    
-            console.log(a.timeZone.split("/")[0]);    
+          {       
             if (a.timeZone.split("/")[0] === b.timeZone.split("/")[0]) 
             {     
               return parseInt(a.temperature) < parseInt(b.temperature) ? -1 : 1;    
@@ -482,7 +481,6 @@ import changeToFahrenheit from "./export.js";
       {
         cityValues.sort((a, b) => 
        {    
-        console.log(a.timeZone.split("/")[0]);    
         if (a.timeZone.split("/")[0] === b.timeZone.split("/")[0]) 
         {     
           return parseInt(b.temperature) < parseInt(a.temperature) ? -1 : 1;    
@@ -499,8 +497,7 @@ import changeToFahrenheit from "./export.js";
       if(temperatureOrder == 0){
         {    
           cityValues.sort((a, b) => 
-          {    
-            console.log(a.timeZone.split("/")[0]);    
+          {       
             if (a.timeZone.split("/")[0] === b.timeZone.split("/")[0]) 
             {     
               return parseInt(a.temperature) < parseInt(b.temperature) ? -1 : 1;    
@@ -516,7 +513,6 @@ import changeToFahrenheit from "./export.js";
       {
         cityValues.sort((a, b) => 
        {    
-        console.log(a.timeZone.split("/")[0]);    
         if (a.timeZone.split("/")[0] === b.timeZone.split("/")[0]) 
         {     
           return parseInt(b.temperature) < parseInt(a.temperature) ? -1 : 1;    
@@ -555,7 +551,7 @@ import changeToFahrenheit from "./export.js";
     }
     sortContinents();
   });
-  
+
   setInterval(sortContinents, 60000);
 
 })();
