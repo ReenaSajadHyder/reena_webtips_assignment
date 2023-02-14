@@ -302,15 +302,6 @@ import changeToFahrenheit from "./export.js";
           </p>
         </div>
       </div>`;
-
-      if(document.querySelector("#quantity").value <= 4){
-        document.querySelector(".scroll-left").style.visibility = "hidden";
-        document.querySelector(".scroll-right").style.visibility = "hidden";
-      }
-      else{
-        document.querySelector(".scroll-left").style.visibility = "visible";
-        document.querySelector(".scroll-right").style.visibility = "visible";
-      }
     }
     cardContent.innerHTML = weatherCard;
 
@@ -331,6 +322,14 @@ import changeToFahrenheit from "./export.js";
       slicedArr = cities.slice(0, quantityLimit);
     } else {
       slicedArr = cities;
+    }
+    if(slicedArr.length <= 4){
+      document.querySelector(".scroll-left").style.visibility = "hidden";
+      document.querySelector(".scroll-right").style.visibility = "hidden";
+    }
+    else{
+      document.querySelector(".scroll-left").style.visibility = "";
+      document.querySelector(".scroll-right").style.visibility = "";
     }
     displayCards(slicedArr);
   }
