@@ -154,8 +154,17 @@ input[type="number"]::-webkit-outer-spin-button {
     padding-bottom: 13%;
     padding-top: 13%;
   }
+  .scroll-left {
+    top:75%;
+    z-index: 1;
+  }
+  .scroll-right {
+    top:75%;
+    z-index: 1;
+  }
   .card {
     height: 250px;
+    width: 250px;
   }
   .city-name-temp {
     font-size: 18px;
