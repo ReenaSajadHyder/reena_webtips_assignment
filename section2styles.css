@@ -9,8 +9,8 @@
   color: #ffffff;
   display: grid;
   font-size: 23px;
-  grid-template-columns: 70% 5% 5% 5% 15%;
   grid-auto-columns: 100%;
+  grid-template-columns: 70% 5% 5% 5% 15%;
   z-index: 0;
 }
 .top-cities {
@@ -26,20 +26,18 @@
 }
 .sun-symbol,
 .cold-symbol,
-.rain-symbol{
+.rain-symbol {
   transition: 0.2s;
 }
 .sun-symbol:hover,
 .cold-symbol:hover,
-.rain-symbol:hover{
+.rain-symbol:hover {
   transform: scale(1.5);
 }
-
-.active{
-  border-bottom: 2px solid #1E90FF;
+.active {
+  border-bottom: 2px solid #1e90ff;
   transform: scale(1.5);
 }
-
 .display-top {
   font-size: 17px;
   padding-top: 13%;
@@ -48,13 +46,12 @@
   background-color: rgba(131, 131, 131, 0.25);
   color: #ffffff;
 }
-
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   opacity: 1;
 }
-.city-card{
-  overflow-x: scroll; 
+.city-card {
+  overflow-x: scroll;
 }
 .scroll-left {
   align-self: center;
@@ -62,9 +59,9 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 50%;
   color: #181818;
   cursor: pointer;
+  left: 5px;
   padding: 15px;
-  position: absolute;  
-  left:5px;
+  position: absolute;
   z-index: 1;
 }
 .scroll-right {
@@ -74,26 +71,23 @@ input[type="number"]::-webkit-outer-spin-button {
   color: #181818;
   cursor: pointer;
   padding: 15px;
-  position: absolute; 
-  right:5px;
+  position: absolute;
+  right: 5px;
   z-index: 1;
 }
-
 .row {
   column-gap: 30px;
   display: flex;
   grid-auto-flow: column;
   justify-content: center;
-  overflow-x: scroll;
   margin-left: 5%;
   margin-right: 5%;
+  overflow-x: scroll;
   padding-top: 2%;
 }
-
 .row::-webkit-scrollbar {
   display: none;
 }
-
 .city-card::-webkit-scrollbar {
   display: none;
 }
@@ -154,7 +148,6 @@ input[type="number"]::-webkit-outer-spin-button {
     padding-bottom: 13%;
     padding-top: 13%;
   }
-
   .card {
     height: 250px;
     width: 250px;
@@ -172,5 +165,3 @@ input[type="number"]::-webkit-outer-spin-button {
     font-size: 15px;
   }
 }
-
-

@@ -7,9 +7,9 @@
 }
 .city-icon {
   height: 85%;
-  width: 85%;
-  padding-top: 30%;
   padding-left: 10%;
+  padding-top: 30%;
+  width: 85%;
 }
 .city {
   background-color: rgba(131, 131, 131, 0.25);

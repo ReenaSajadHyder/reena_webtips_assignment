@@ -64,7 +64,6 @@ import changeToFahrenheit from "./export.js";
   setInterval(changeWeather, 1000);
 
   function changeWeather() {
-
     let curCity = document.querySelector("#city1");
     let currentCity = curCity.value;
     let logo = document.getElementById("city-icon");
@@ -80,7 +79,6 @@ import changeToFahrenheit from "./export.js";
     });
     let realTime = document.getElementById("time");
     let date = document.getElementById("date");
-
 
     const sixHoursTemp = [
       parseInt(weather_data[currentCity].temperature.slice(0, -2)),
@@ -127,7 +125,7 @@ import changeToFahrenheit from "./export.js";
       monthArr[dateArr[0] - 1] +
       "-" +
       dateArr[2];
-      
+
     date.innerHTML = dateInWords;
 
     //Hourly Weather
@@ -241,7 +239,6 @@ import changeToFahrenheit from "./export.js";
 
   //Function to display cards
   function displayCards(slicedArr) {
-
     let weatherCard = " ";
     let cardContent = document.querySelector("#row");
     for (let i = 0; i < slicedArr.length; i++) {
@@ -261,8 +258,6 @@ import changeToFahrenheit from "./export.js";
         monthArr[dateArr[0] - 1] +
         "-" +
         dateArr[2];
-
-      
 
       weatherCard += `<div class="card" id="card-${i}">
         <div class="city-name-temp">
@@ -305,7 +300,6 @@ import changeToFahrenheit from "./export.js";
 
     cardContent.innerHTML = weatherCard;
 
-
     for (let i = 0; i < slicedArr.length; i++) {
       document.querySelector(
         `#card-${[i]}`
@@ -327,20 +321,17 @@ import changeToFahrenheit from "./export.js";
     } else {
       slicedArr = cities;
     }
-    if(slicedArr.length <= 4){
+    if (slicedArr.length <= 4) {
       leftScroll.style.visibility = "hidden";
       rightScroll.style.visibility = "hidden";
-    }
-    else{
+    } else {
       leftScroll.style.visibility = "";
       rightScroll.style.visibility = "";
     }
 
-    if(slicedArr.length > 4) 
-    {
+    if (slicedArr.length > 4) {
       cardAlignment.style.justifyContent = "flex-start";
-    }
-    else{
+    } else {
       cardAlignment.style.justifyContent = "center";
     }
     displayCards(slicedArr);
@@ -372,41 +363,41 @@ import changeToFahrenheit from "./export.js";
     let sunSymbol = document.querySelector("#sun-symbol");
     let coldSymbol = document.querySelector("#cold-symbol");
     let rainSymbol = document.querySelector("#rain-symbol");
-    sunSymbol.classList.remove("active")
-    coldSymbol.classList.remove("active")
-    rainSymbol.classList.remove("active")
+    sunSymbol.classList.remove("active");
+    coldSymbol.classList.remove("active");
+    rainSymbol.classList.remove("active");
     if (weatherNow == "sunny") {
       sunSymbol.classList.add("active");
       for (let i = 0; i < cityValues.length; i++) {
-          if (
-            parseInt(cityValues[i].temperature) > 29 &&
-            parseInt(cityValues[i].humidity) < 50 &&
-            parseInt(cityValues[i].precipitation) >= 50
-          ) {
-            cities.push(cityValues[i]);
-          };
+        if (
+          parseInt(cityValues[i].temperature) > 29 &&
+          parseInt(cityValues[i].humidity) < 50 &&
+          parseInt(cityValues[i].precipitation) >= 50
+        ) {
+          cities.push(cityValues[i]);
+        }
       }
     } else if (weatherNow == "snowflake") {
       coldSymbol.classList.add("active");
       for (let i = 0; i < cityValues.length; i++) {
-          if (
-            parseInt(cityValues[i].temperature) > 20 &&
-            parseInt(cityValues[i].temperature) < 28 &&
-            parseInt(cityValues[i].humidity) > 50 &&
-            parseInt(cityValues[i].precipitation) < 50
-          ) {
-            cities.push(cityValues[i]);
-          }
+        if (
+          parseInt(cityValues[i].temperature) > 20 &&
+          parseInt(cityValues[i].temperature) < 28 &&
+          parseInt(cityValues[i].humidity) > 50 &&
+          parseInt(cityValues[i].precipitation) < 50
+        ) {
+          cities.push(cityValues[i]);
+        }
       }
     } else if (weatherNow == "rainy") {
       rainSymbol.classList.add("active");
       for (let i = 0; i < cityValues.length; i++) {
-          if (
-            parseInt(cityValues[i].temperature) < 20 &&
-            parseInt(cityValues[i].humidity) >= 50
-          ) {
-            cities.push(cityValues[i]);
-          }
+        if (
+          parseInt(cityValues[i].temperature) < 20 &&
+          parseInt(cityValues[i].humidity) >= 50
+        ) {
+          cities.push(cityValues[i]);
+        }
       }
     }
     sortCities();
