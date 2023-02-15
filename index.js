@@ -194,7 +194,6 @@ import changeToFahrenheit from "./export.js";
   }
 
   function setNullVal() {
-
     //Red outline for input box
     inputCity.style.borderColor = "red";
 
