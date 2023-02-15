@@ -1,3 +1,49 @@
+.splashscreen-bg{
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  z-index: 3;
+  position: absolute; 
+  justify-content: center;
+}
+.splashscreen-bg ,.splashscreen-bg *{
+  animation-name: splashscreen;
+  animation-duration: 5s;
+  animation-iteration-count: 1;
+  opacity:0;
+}
+
+.weather-logo {
+  position: relative;
+  width:16%;
+  height: auto;
+  left: 42%;
+  top:0;
+  
+}
+
+.weather-text {
+  color: #FFE5B4;
+  font-size: 32px; 
+  align-self: center;
+}
+
+@keyframes splashscreen {
+  0% {
+    opacity:1
+  }
+  100%{
+    opacity:0;
+    z-index: 0;
+  }
+}
+
+body{
+  overflow-x: hidden;
+}
+
 .top-section {
   display: grid;
   grid-template-columns: 10% 20% 10% 10% 50%;
