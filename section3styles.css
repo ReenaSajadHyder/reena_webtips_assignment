@@ -18,14 +18,12 @@
   cursor: pointer;
   font-size: 25px;
   padding-top: 3%;
-
 }
-
 .cont-arrow,
 .temp-arrow {
   height: 25px;
-  width: 25px;
   padding-left: 5px;
+  width: 25px;
 }
 .continent-city {
   display: grid;
@@ -80,9 +78,9 @@
   }
   .cont-arrow,
   .temp-arrow {
-  height: 20px;
-  width: 20px;
-  padding-left: 4px;
+    height: 20px;
+    padding-left: 4px;
+    width: 20px;
   }
   .cont-name {
     font-size: 18px;
