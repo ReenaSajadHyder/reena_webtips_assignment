@@ -66,7 +66,7 @@ import changeToFahrenheit from "./export.js";
 
   function callChange() {
     city = Object.keys(weather_data);
-    let cityGiven = inputCity.value;
+    let cityGiven = inputCity.value.toLowerCase();
     let flag = 0;
     for (let i = 0; i < city.length; i++) {
       if (cityGiven == city[i]) {
