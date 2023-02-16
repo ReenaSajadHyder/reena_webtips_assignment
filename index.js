@@ -108,8 +108,6 @@ Base.prototype.callChange = function () {
   }
 };
 
-//setInterval(changeWeather, 1000);
-
 //function to display weather results for the given city
 Base.prototype.changeWeather = function () {
   let currentCity = this.inputCity.value.toLowerCase();
@@ -510,4 +508,3 @@ Base.prototype.changeTempArrow = function () {
   this.sortContinents();
 };
 
-//setInterval(sortContinents, 60000);
