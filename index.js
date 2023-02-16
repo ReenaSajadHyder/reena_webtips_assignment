@@ -48,6 +48,7 @@ import changeToFahrenheit from "./export.js";
       categorizeCities("sunny");
     });
 
+  //funtion to display all the available city options  
   function setCity() {
     city = Object.keys(weather_data);
     let cityOption = document.querySelector("#city");
@@ -58,12 +59,14 @@ import changeToFahrenheit from "./export.js";
     cityOption.innerHTML = option;
   }
 
+  //function to display the results for vienna initially
   function initCity() {
     inputCity.value = city[8];
     callChange();
     inputCity.addEventListener("input", callChange);
   }
 
+  //function to display the weather results based on user's choice
   function callChange() {
     city = Object.keys(weather_data);
     let cityGiven = inputCity.value.toLowerCase();
@@ -79,8 +82,9 @@ import changeToFahrenheit from "./export.js";
       setNullVal();
     }
   }
-  // setInterval(changeWeather, 1000);
+  setInterval(changeWeather, 1000);
 
+  //function to display weather results for the given city
   function changeWeather() {
     let currentCity = inputCity.value.toLowerCase();
     let tZone = weather_data[currentCity].timeZone;
@@ -100,32 +104,24 @@ import changeToFahrenheit from "./export.js";
 
     cityLogo.src = `./images/Icons for cities/${currentCity}.svg`;
 
-    //Black outline for input box
     inputCity.style.borderColor = "black";
 
-    //temperature C
     tempC.innerHTML = weather_data[currentCity].temperature;
 
-    //temperature F
     let cel = weather_data[currentCity].temperature.slice(0, -2);
     far = changeToFahrenheit(cel);
     far = far.toPrecision(3);
     far += ` F`;
     tempF.innerHTML = far;
 
-    //Humidity
     humNum.innerHTML = weather_data[currentCity].humidity;
 
-    //Precipitation
     precipNum.innerHTML = weather_data[currentCity].precipitation;
 
-    //Date and Time
     const dateTimeArr = weather_data[currentCity].dateAndTime.split(",");
 
-    //Real Time
     realTime.innerHTML = time;
 
-    //Date
     let dateSplit = dateTimeArr[0];
     let dateArr = dateSplit.split("/");
     let dateInWords =
@@ -137,8 +133,6 @@ import changeToFahrenheit from "./export.js";
 
     date.innerHTML = dateInWords;
 
-    //Hourly Weather
-    //Time
     let amPm = time.slice(-2);
     time = time.slice(0, 2);
     time = parseInt(time) + 1;
@@ -160,7 +154,6 @@ import changeToFahrenheit from "./export.js";
       time++;
     }
 
-    //Weather symbol
     for (let i = 0; i < 6; i++) {
       if (sixHoursTemp[i] < 0) {
         document.getElementById(`icon-${i + 1}`).src =
@@ -180,7 +173,6 @@ import changeToFahrenheit from "./export.js";
       }
     }
 
-    //Temperature
     document.getElementById("temp-num1").innerHTML = weather_data[
       currentCity
     ].temperature.slice(0, -2);
@@ -194,59 +186,53 @@ import changeToFahrenheit from "./export.js";
     ].temperature.slice(0, -2);
   }
 
+  //function to display numm values if user enters invalid city
   function setNullVal() {
-    //Red outline for input box
     inputCity.style.borderColor = "red";
 
     cityLogo.src = `./images/Icons for cities/defaultIcon.png`;
 
-    //temperature C
     tempC.innerHTML = "-";
 
-    //temperature F
     tempF.innerHTML = "-";
 
-    //Humidity
     humNum.innerHTML = "-";
 
-    //Precipitation
     precipNum.innerHTML = "-";
 
-    //Date and Time
     realTime.innerHTML = "Invalid City name.";
     date.innerHTML = "";
 
-    //Hourly Weather
-    //Time
     for (let i = 1; i < 6; i++) {
       document.getElementById(`hour${i}`).innerHTML = "NA";
     }
 
-    //Weather symbol
     for (let i = 0; i < 6; i++) {
       document.getElementById(`icon-${i + 1}`).src =
         "./images/Weather Icons/warning2.png";
     }
 
-    //Temperature
     for (let i = 1; i < 7; i++) {
       document.getElementById(`temp-num${i}`).innerHTML = "-";
     }
   }
 
   //Middle Section
-
   //Function to display cards
   function displayCards(slicedArr) {
     let weatherCard = " ";
-    //let cardContent = document.querySelector("#row");
     for (let i = 0; i < slicedArr.length; i++) {
-      let tZone = cities[i].timeZone;
-      let time = new Date().toLocaleString("en-US", {
-        timeZone: tZone,
+
+      let curTime = new Date().toLocaleString("en-US", {
+        timeZone: cityValues[i].timeZone,
         timeStyle: "medium",
         hourCycle: "h12",
       });
+
+      let timeArr = curTime.split(" ");
+      let amPm = timeArr[1];
+      let hourMinSec = timeArr[0].split(":");
+      let time = hourMinSec[0] + ":" + hourMinSec[1] + " " + amPm;
 
       const dateTimeArr = slicedArr[i].dateAndTime.split(",");
       let dateSplit = dateTimeArr[0];
