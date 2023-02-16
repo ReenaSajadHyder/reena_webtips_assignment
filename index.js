@@ -61,15 +61,16 @@ import changeToFahrenheit from "./export.js";
   function initCity() {
     inputCity.value = city[8];
     callChange();
-    inputCity.addEventListener("change", callChange);
+    inputCity.addEventListener("input", callChange);
   }
 
   function callChange() {
     city = Object.keys(weather_data);
     let cityGiven = inputCity.value.toLowerCase();
+
     let flag = 0;
     for (let i = 0; i < city.length; i++) {
-      if (cityGiven == city[i]) {
+      if (cityGiven === city[i]) {
         changeWeather();
         flag = 1;
       }
@@ -78,10 +79,10 @@ import changeToFahrenheit from "./export.js";
       setNullVal();
     }
   }
-  setInterval(changeWeather, 1000);
+  // setInterval(changeWeather, 1000);
 
   function changeWeather() {
-    let currentCity = inputCity.value;
+    let currentCity = inputCity.value.toLowerCase();
     let tZone = weather_data[currentCity].timeZone;
     let time = new Date().toLocaleString("en-US", {
       timeZone: tZone,
