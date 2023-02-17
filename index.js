@@ -3,15 +3,16 @@ import changeToFahrenheit from "./export.js";
 fetch("data.json")
   .then((data) => data.json())
   .then((result) => {
-    let obj = new weatherApp(result);
-    obj.setCity();
-    obj.initCity();
-    obj.categorizeCities("sunny");
-    setInterval(obj.changeWeather.bind(obj, 1000));
-    setInterval(obj.sortContinents.bind(obj, 60000));
+    let obj = new WeatherApp(result);
+    let obj2 = new WeatherNow(result);
+    obj2.setCity();
+    obj2.initCity();
+    obj2.categorizeCities("sunny");
+    setInterval(obj2.callChange.bind(obj2, 1000));
+    setInterval(obj2.sortContinents.bind(obj2, 60000));
   });
 
-function weatherApp(data) {
+function WeatherApp(data) {
   this.data = data;
   this.far = 0;
   this.city = [];
@@ -50,6 +51,21 @@ function weatherApp(data) {
   this.rightScroll = document.querySelector(".scroll-right");
   this.cardContent = document.querySelector("#row");
 
+}
+
+//function to get the time according to the time zone
+WeatherApp.prototype.getTime = function (timeZone) {
+  let curTime = new Date().toLocaleString("en-US", {
+    timeZone: timeZone,
+    timeStyle: "short",
+    hourCycle: "h12",
+  });
+  return curTime;
+}
+
+//function weatherNow inherits WeatherApp
+function WeatherNow (...args) {
+  WeatherApp.apply(this, args);
   this.inputCity.addEventListener("input", this.callChange.bind(this));
   this.sunSymbol.addEventListener(
     "click",
@@ -74,8 +90,10 @@ function weatherApp(data) {
     .addEventListener("click", this.changeTempArrow.bind(this));
 }
 
-//funtion to display all the available city options
-weatherApp.prototype.setCity = function () {
+WeatherNow.prototype = Object.create(WeatherApp.prototype);
+
+//function to display all the available city options
+WeatherNow.prototype.setCity = function () {
   this.city = Object.keys(this.data);
   let cityOption = document.querySelector("#city");
   let option = ``;
@@ -86,13 +104,13 @@ weatherApp.prototype.setCity = function () {
 };
 
 //function to display the results for vienna initially
-weatherApp.prototype.initCity = function () {
+WeatherNow.prototype.initCity = function () {
   this.inputCity.value = this.city[8];
   this.callChange();
 };
 
-//function to display the weather results weatherAppd on user's choice
-weatherApp.prototype.callChange = function () {
+//function to display the weather results WeatherAppd on user's choice
+WeatherNow.prototype.callChange = function () {
   this.city = Object.keys(this.data);
   let cityGiven = this.inputCity.value.toLowerCase();
 
@@ -108,8 +126,19 @@ weatherApp.prototype.callChange = function () {
   }
 };
 
+// WeatherNow.prototype.displayTime = function() {
+//   let tZone = this.data[currentCity].timeZone;
+//   let time =tZone? new Date().toLocaleString("en-US", {
+//     timeZone: tZone,
+//     timeStyle: "medium",
+//     hourCycle: "h12",
+//   }):"Nill";
+  
+//   this.realTime.innerHTML = time;
+// }
+
 //function to display weather results for the given city
-weatherApp.prototype.changeWeather = function () {
+WeatherNow.prototype.changeWeather = function () {
   let currentCity = this.inputCity.value.toLowerCase();
   let tZone = this.data[currentCity].timeZone;
   let time = new Date().toLocaleString("en-US", {
@@ -117,7 +146,7 @@ weatherApp.prototype.changeWeather = function () {
     timeStyle: "medium",
     hourCycle: "h12",
   });
-
+  
   const sixHoursTemp = [
     parseInt(this.data[currentCity].temperature.slice(0, -2)),
   ];
@@ -143,7 +172,7 @@ weatherApp.prototype.changeWeather = function () {
   this.precipNum.innerHTML = this.data[currentCity].precipitation;
 
   let dateTimeArr = this.data[currentCity].dateAndTime.split(",");
-
+  
   this.realTime.innerHTML = time;
 
   let dateSplit = dateTimeArr[0];
@@ -211,7 +240,7 @@ weatherApp.prototype.changeWeather = function () {
 };
 
 //function to display null values if user enters invalid city
-weatherApp.prototype.setNullVal = function () {
+WeatherNow.prototype.setNullVal = function () {
   this.inputCity.style.borderColor = "red";
 
   this.cityLogo.src = `./images/Icons for cities/defaultIcon.png`;
@@ -243,15 +272,10 @@ weatherApp.prototype.setNullVal = function () {
 
 //Middle Section
 //Function to display cards
-weatherApp.prototype.displayCards = function (slicedArr) {
+WeatherNow.prototype.displayCards = function (slicedArr) {
   let weatherCard = " ";
   for (let i = 0; i < slicedArr.length; i++) {
-    let curTime = new Date().toLocaleString("en-US", {
-      timeZone: this.cityValues[i].timeZone,
-      timeStyle: "short",
-      hourCycle: "h12",
-    });
-
+    let curTime = this.getTime(slicedArr[i].timeZone);
     const dateTimeArr = slicedArr[i].dateAndTime.split(",");
     let dateSplit = dateTimeArr[0];
     let dateArr = dateSplit.split("/");
@@ -312,7 +336,7 @@ weatherApp.prototype.displayCards = function (slicedArr) {
 };
 
 //Function to display the given number of cities
-weatherApp.prototype.displayQuantity = function () {
+WeatherNow.prototype.displayQuantity = function () {
   let quantityLimit = this.quant.value;
   let slicedArr = [];
   if (this.cities.length > quantityLimit) {
@@ -337,7 +361,7 @@ weatherApp.prototype.displayQuantity = function () {
 };
 
 //Function to sort cities
-weatherApp.prototype.sortCities = function () {
+WeatherNow.prototype.sortCities = function () {
   if (this.weatherNow == "sunny") {
     this.cities.sort((a, b) => {
       return parseInt(b.temperature) - parseInt(a.temperature);
@@ -354,8 +378,8 @@ weatherApp.prototype.sortCities = function () {
   this.displayQuantity();
 };
 
-//Function to categorize cities weatherAppd on weather
-weatherApp.prototype.categorizeCities = function (weatherGiven) {
+//Function to categorize cities WeatherAppd on weather
+WeatherNow.prototype.categorizeCities = function (weatherGiven) {
   this.weatherNow = weatherGiven;
   this.cityValues = Object.values(this.data);
   this.cities = [];
@@ -399,25 +423,21 @@ weatherApp.prototype.categorizeCities = function (weatherGiven) {
   this.sortCities();
 };
 
-weatherApp.prototype.cardleftScroll = function () {
+WeatherNow.prototype.cardleftScroll = function () {
   document.querySelector(".row").scrollLeft -= 300;
 };
 
-weatherApp.prototype.cardrightScroll = function () {
+WeatherNow.prototype.cardrightScroll = function () {
   document.querySelector(".row").scrollLeft += 300;
 };
 
 //Bottom section
 //Function to display the continent cards
-weatherApp.prototype.displayContinents = function () {
+WeatherNow.prototype.displayContinents = function () {
   let continentCards = "";
   let continentCity = document.querySelector(".continent-city");
   for (let i = 0; i < 12; i++) {
-    let curTime = new Date().toLocaleString("en-US", {
-      timeZone: this.cityValues[i].timeZone,
-      timeStyle: "short",
-      hourCycle: "h12",
-    });
+    let curTime = this.getTime(this.cityValues[i].timeZone);
     let time = ", " + curTime;
 
     continentCards += `<div class="box">
@@ -436,7 +456,7 @@ weatherApp.prototype.displayContinents = function () {
 };
 
 //Function to sort continents by alphabetical order
-weatherApp.prototype.sortContinents = function () {
+WeatherNow.prototype.sortContinents = function () {
   this.cityValues = Object.values(this.data);
   if (this.continentOrder == 0) {
     if (this.temperatureOrder == 0) {
@@ -482,7 +502,7 @@ weatherApp.prototype.sortContinents = function () {
   this.displayContinents();
 };
 
-weatherApp.prototype.changeContArrow = function () {
+WeatherNow.prototype.changeContArrow = function () {
   if (this.continentOrder == 0) {
     this.continentOrder = 1;
     document.querySelector(".cont-arrow").src =
@@ -495,7 +515,7 @@ weatherApp.prototype.changeContArrow = function () {
   this.sortContinents();
 };
 
-weatherApp.prototype.changeTempArrow = function () {
+WeatherNow.prototype.changeTempArrow = function () {
   if (this.temperatureOrder == 0) {
     this.temperatureOrder = 1;
     document.querySelector(".temp-arrow").src =
