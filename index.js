@@ -1,10 +1,10 @@
 import changeToFahrenheit from "./export.js";
 
-(function () {
-  let weather_data;
-  let far;
-  let city;
-  const monthArr = [
+function WeatherApp(data) {
+  this.data = data;
+  this.far = 0;
+  this.city = [];
+  this.monthArr = [
     "Jan",
     "Feb",
     "Mar",
@@ -18,76 +18,124 @@ import changeToFahrenheit from "./export.js";
     "Nov",
     "Dec",
   ];
-  let weatherNow;
-  let cityValues;
-  let cities;
-  let continentOrder = 0;
-  let temperatureOrder = 0;
-  let inputCity = document.querySelector("#city1");
-  let cityLogo = document.getElementById("city-icon");
-  let tempC = document.getElementById("tempnum-c");
-  let tempF = document.getElementById("tempnum-f");
-  let humNum = document.getElementById("hum-num");
-  let precipNum = document.getElementById("precip-number");
-  let realTime = document.getElementById("time");
-  let date = document.getElementById("date");
-  let sunSymbol = document.querySelector("#sun-symbol");
-  let coldSymbol = document.querySelector("#cold-symbol");
-  let rainSymbol = document.querySelector("#rain-symbol");
-  let quant = document.querySelector("#quantity");
-  let leftScroll = document.querySelector(".scroll-left");
-  let rightScroll = document.querySelector(".scroll-right");
-  let cardContent = document.querySelector("#row");
+  this.weatherNow = "";
+  this.cityValues = [];
+  this.cities = [];
+  this.continentOrder = 0;
+  this.temperatureOrder = 0;
+  this.inputCity = document.querySelector("#city1");
+  this.cityLogo = document.getElementById("city-icon");
+  this.tempC = document.getElementById("tempnum-c");
+  this.tempF = document.getElementById("tempnum-f");
+  this.humNum = document.getElementById("hum-num");
+  this.precipNum = document.getElementById("precip-number");
+  this.realTime = document.getElementById("time");
+  this.date = document.getElementById("date");
+  this.sunSymbol = document.querySelector("#sun-symbol");
+  this.coldSymbol = document.querySelector("#cold-symbol");
+  this.rainSymbol = document.querySelector("#rain-symbol");
+  this.quant = document.querySelector("#quantity");
+  this.leftScroll = document.querySelector(".scroll-left");
+  this.rightScroll = document.querySelector(".scroll-right");
+  this.cardContent = document.querySelector("#row");
+}
 
+//function weatherNow inherits WeatherApp
+function WeatherNow(...args) {
+  WeatherApp.apply(this, args);
+  this.inputCity.addEventListener("input", this.callChange.bind(this));
+  this.sunSymbol.addEventListener(
+    "click",
+    this.categorizeCities.bind(this, "sunny")
+  );
+  this.coldSymbol.addEventListener(
+    "click",
+    this.categorizeCities.bind(this, "snowflake")
+  );
+  this.rainSymbol.addEventListener(
+    "click",
+    this.categorizeCities.bind(this, "rainy")
+  );
+  this.quant.addEventListener("click", this.displayQuantity.bind(this));
+  this.leftScroll.addEventListener(
+    "click",
+    this.cardleftScroll.bind(this, 300)
+  );
+  this.rightScroll.addEventListener(
+    "click",
+    this.cardrightScroll.bind(this, 300)
+  );
+  document
+    .querySelector("#continent-name")
+    .addEventListener("click", this.changeContArrow.bind(this));
+  document
+    .querySelector(".temperature")
+    .addEventListener("click", this.changeTempArrow.bind(this));
+}
+
+WeatherNow.prototype = Object.create(WeatherApp.prototype);
+
+(function () {
   fetch("data.json")
     .then((data) => data.json())
     .then((result) => {
-      weather_data = result;
-      setCity();
-      initCity();
-      categorizeCities("sunny");
+      let obj = new WeatherApp(result);
+      let obj2 = new WeatherNow(result);
+      obj2.setCity();
+      obj2.initCity();
+      obj2.categorizeCities("sunny");
+      setInterval(obj2.callChange.bind(obj2, 1000));
+      setInterval(obj2.sortContinents.bind(obj2, 60000));
     });
 
-  //funtion to display all the available city options  
-  function setCity() {
-    city = Object.keys(weather_data);
+  //function to get the time according to the time zone
+  WeatherApp.prototype.getTime = function (timeZone) {
+    let curTime = new Date().toLocaleString("en-US", {
+      timeZone: timeZone,
+      timeStyle: "short",
+      hourCycle: "h12",
+    });
+    return curTime;
+  };
+
+  //function to display all the available city options
+  WeatherNow.prototype.setCity = function () {
+    this.city = Object.keys(this.data);
     let cityOption = document.querySelector("#city");
     let option = ``;
-    for (let i = 0; i < city.length; i++) {
-      option += `<option>${city[i]}</option>`;
+    for (let i = 0; i < this.city.length; i++) {
+      option += `<option>${this.city[i]}</option>`;
     }
     cityOption.innerHTML = option;
-  }
+  };
 
   //function to display the results for vienna initially
-  function initCity() {
-    inputCity.value = city[8];
-    callChange();
-    inputCity.addEventListener("input", callChange);
-  }
+  WeatherNow.prototype.initCity = function () {
+    this.inputCity.value = this.city[8];
+    this.callChange();
+  };
 
-  //function to display the weather results based on user's choice
-  function callChange() {
-    city = Object.keys(weather_data);
-    let cityGiven = inputCity.value.toLowerCase();
+  //function to display the weather results WeatherAppd on user's choice
+  WeatherNow.prototype.callChange = function () {
+    this.city = Object.keys(this.data);
+    let cityGiven = this.inputCity.value.toLowerCase();
 
     let flag = 0;
-    for (let i = 0; i < city.length; i++) {
-      if (cityGiven === city[i]) {
-        changeWeather();
+    for (let i = 0; i < this.city.length; i++) {
+      if (cityGiven === this.city[i]) {
+        this.changeWeather();
         flag = 1;
       }
     }
     if (flag == 0) {
-      setNullVal();
+      this.setNullVal();
     }
-  }
-  setInterval(changeWeather, 1000);
+  };
 
   //function to display weather results for the given city
-  function changeWeather() {
-    let currentCity = inputCity.value.toLowerCase();
-    let tZone = weather_data[currentCity].timeZone;
+  WeatherNow.prototype.changeWeather = function () {
+    let currentCity = this.inputCity.value.toLowerCase();
+    let tZone = this.data[currentCity].timeZone;
     let time = new Date().toLocaleString("en-US", {
       timeZone: tZone,
       timeStyle: "medium",
@@ -95,43 +143,43 @@ import changeToFahrenheit from "./export.js";
     });
 
     const sixHoursTemp = [
-      parseInt(weather_data[currentCity].temperature.slice(0, -2)),
+      parseInt(this.data[currentCity].temperature.slice(0, -2)),
     ];
     for (let i = 1; i < 5; i++) {
-      sixHoursTemp[i] = parseInt(weather_data[currentCity].nextFiveHrs[i - 1]);
+      sixHoursTemp[i] = parseInt(this.data[currentCity].nextFiveHrs[i - 1]);
     }
-    sixHoursTemp[5] = parseInt(weather_data[currentCity].temperature);
+    sixHoursTemp[5] = parseInt(this.data[currentCity].temperature);
 
-    cityLogo.src = `./images/Icons for cities/${currentCity}.svg`;
+    this.cityLogo.src = `./images/Icons for cities/${currentCity}.svg`;
 
-    inputCity.style.borderColor = "black";
+    this.inputCity.style.borderColor = "black";
 
-    tempC.innerHTML = weather_data[currentCity].temperature;
+    this.tempC.innerHTML = this.data[currentCity].temperature;
 
-    let cel = weather_data[currentCity].temperature.slice(0, -2);
-    far = changeToFahrenheit(cel);
-    far = far.toPrecision(3);
-    far += ` F`;
-    tempF.innerHTML = far;
+    let cel = this.data[currentCity].temperature.slice(0, -2);
+    this.far = changeToFahrenheit(cel);
+    this.far = this.far.toPrecision(3);
+    this.far += ` F`;
+    this.tempF.innerHTML = this.far;
 
-    humNum.innerHTML = weather_data[currentCity].humidity;
+    this.humNum.innerHTML = this.data[currentCity].humidity;
 
-    precipNum.innerHTML = weather_data[currentCity].precipitation;
+    this.precipNum.innerHTML = this.data[currentCity].precipitation;
 
-    const dateTimeArr = weather_data[currentCity].dateAndTime.split(",");
+    let dateTimeArr = this.data[currentCity].dateAndTime.split(",");
 
-    realTime.innerHTML = time;
+    this.realTime.innerHTML = time;
 
     let dateSplit = dateTimeArr[0];
     let dateArr = dateSplit.split("/");
     let dateInWords =
       String(dateArr[1].padStart(2, "0")) +
       "-" +
-      monthArr[dateArr[0] - 1] +
+      this.monthArr[dateArr[0] - 1] +
       "-" +
       dateArr[2];
 
-    date.innerHTML = dateInWords;
+    this.date.innerHTML = dateInWords;
 
     let amPm = time.slice(-2);
     time = time.slice(0, 2);
@@ -173,35 +221,35 @@ import changeToFahrenheit from "./export.js";
       }
     }
 
-    document.getElementById("temp-num1").innerHTML = weather_data[
+    document.getElementById("temp-num1").innerHTML = this.data[
       currentCity
     ].temperature.slice(0, -2);
     for (let i = 2; i < 6; i++) {
-      document.getElementById(`temp-num${i}`).innerHTML = weather_data[
+      document.getElementById(`temp-num${i}`).innerHTML = this.data[
         currentCity
       ].nextFiveHrs[i - 2].slice(0, -2);
     }
-    document.getElementById("temp-num6").innerHTML = weather_data[
+    document.getElementById("temp-num6").innerHTML = this.data[
       currentCity
     ].temperature.slice(0, -2);
-  }
+  };
 
-  //function to display numm values if user enters invalid city
-  function setNullVal() {
-    inputCity.style.borderColor = "red";
+  //function to display null values if user enters invalid city
+  WeatherNow.prototype.setNullVal = function () {
+    this.inputCity.style.borderColor = "red";
 
-    cityLogo.src = `./images/Icons for cities/defaultIcon.png`;
+    this.cityLogo.src = `./images/Icons for cities/defaultIcon.png`;
 
-    tempC.innerHTML = "-";
+    this.tempC.innerHTML = "-";
 
-    tempF.innerHTML = "-";
+    this.tempF.innerHTML = "-";
 
-    humNum.innerHTML = "-";
+    this.humNum.innerHTML = "-";
 
-    precipNum.innerHTML = "-";
+    this.precipNum.innerHTML = "-";
 
-    realTime.innerHTML = "Invalid City name.";
-    date.innerHTML = "";
+    this.realTime.innerHTML = "Invalid City name.";
+    this.date.innerHTML = "";
 
     for (let i = 1; i < 6; i++) {
       document.getElementById(`hour${i}`).innerHTML = "NA";
@@ -215,75 +263,63 @@ import changeToFahrenheit from "./export.js";
     for (let i = 1; i < 7; i++) {
       document.getElementById(`temp-num${i}`).innerHTML = "-";
     }
-  }
+  };
 
   //Middle Section
   //Function to display cards
-  function displayCards(slicedArr) {
+  WeatherNow.prototype.displayCards = function (slicedArr) {
     let weatherCard = " ";
     for (let i = 0; i < slicedArr.length; i++) {
-
-      let curTime = new Date().toLocaleString("en-US", {
-        timeZone: cityValues[i].timeZone,
-        timeStyle: "medium",
-        hourCycle: "h12",
-      });
-
-      let timeArr = curTime.split(" ");
-      let amPm = timeArr[1];
-      let hourMinSec = timeArr[0].split(":");
-      let time = hourMinSec[0] + ":" + hourMinSec[1] + " " + amPm;
-
+      let curTime = this.getTime(slicedArr[i].timeZone);
       const dateTimeArr = slicedArr[i].dateAndTime.split(",");
       let dateSplit = dateTimeArr[0];
       let dateArr = dateSplit.split("/");
       let dateInWords =
         String(dateArr[1].padStart(2, "0")) +
         "-" +
-        monthArr[dateArr[0] - 1] +
+        this.monthArr[dateArr[0] - 1] +
         "-" +
         dateArr[2];
 
       weatherCard += `<div class="card" id="card-${i}">
-        <div class="city-name-temp">
-          <p><strong> ${slicedArr[i]["cityName"]}</strong></p>
-          <p>
-            <img
-              class="sunny-icon"
-              src="./images/Weather Icons/${weatherNow}Icon.svg"
-              alt="sunnyicon"
-            />
-            <strong>${slicedArr[i]["temperature"]}</strong>
-          </p>
-        </div>
-        <div class="td">
-          <p><strong>${time}</strong></p>
-        </div>
-        <div class="td">
-          <p><strong>${dateInWords}</strong></p>
-        </div>
-        <div class="hp">
-          <p>
-            <img
-              src="./images/Weather Icons/humidityIcon.svg"
-              alt="humidity icon"
-            />
-            ${slicedArr[i]["humidity"]}
-          </p>
-        </div>
-        <div class="hp">
-          <p>
-            <img
-              src="./images/Weather Icons/precipitationIcon.svg"
-              alt="precipitation icon"
-            />
-            ${slicedArr[i]["precipitation"]}
-          </p>
-        </div>
-      </div>`;
+      <div class="city-name-temp">
+        <p><strong> ${slicedArr[i]["cityName"]}</strong></p>
+        <p>
+          <img
+            class="sunny-icon"
+            src="./images/Weather Icons/${this.weatherNow}Icon.svg"
+            alt="sunnyicon"
+          />
+          <strong>${slicedArr[i]["temperature"]}</strong>
+        </p>
+      </div>
+      <div class="td">
+        <p><strong>${curTime}</strong></p>
+      </div>
+      <div class="td">
+        <p><strong>${dateInWords}</strong></p>
+      </div>
+      <div class="hp">
+        <p>
+          <img
+            src="./images/Weather Icons/humidityIcon.svg"
+            alt="humidity icon"
+          />
+          ${slicedArr[i]["humidity"]}
+        </p>
+      </div>
+      <div class="hp">
+        <p>
+          <img
+            src="./images/Weather Icons/precipitationIcon.svg"
+            alt="precipitation icon"
+          />
+          ${slicedArr[i]["precipitation"]}
+        </p>
+      </div>
+    </div>`;
     }
-
-    cardContent.innerHTML = weatherCard;
+    this.cardContent.innerHTML = weatherCard;
 
     for (let i = 0; i < slicedArr.length; i++) {
       document.querySelector(
@@ -292,152 +328,135 @@ import changeToFahrenheit from "./export.js";
         i
       ].cityName.toLowerCase()}.svg ')`;
     }
-  }
+  };
+
   //Function to display the given number of cities
-  function displayQuantity() {
-    let quantityLimit = quant.value;
+  WeatherNow.prototype.displayQuantity = function () {
+    let quantityLimit = this.quant.value;
     let slicedArr = [];
-    if (cities.length > quantityLimit) {
-      slicedArr = cities.slice(0, quantityLimit);
+    if (this.cities.length > quantityLimit) {
+      slicedArr = this.cities.slice(0, quantityLimit);
     } else {
-      slicedArr = cities;
+      slicedArr = this.cities;
     }
     if (slicedArr.length <= 4) {
-      leftScroll.style.visibility = "hidden";
-      rightScroll.style.visibility = "hidden";
+      this.leftScroll.style.visibility = "hidden";
+      this.rightScroll.style.visibility = "hidden";
     } else {
-      leftScroll.style.visibility = "";
-      rightScroll.style.visibility = "";
+      this.leftScroll.style.visibility = "";
+      this.rightScroll.style.visibility = "";
     }
 
     if (slicedArr.length > 4) {
-      cardContent.style.justifyContent = "flex-start";
+      this.cardContent.style.justifyContent = "flex-start";
     } else {
-      cardContent.style.justifyContent = "center";
+      this.cardContent.style.justifyContent = "center";
     }
-    displayCards(slicedArr);
-  }
+    this.displayCards(slicedArr);
+  };
 
   //Function to sort cities
-  function sortCities() {
-    if (weatherNow == "sunny") {
-      cities.sort((a, b) => {
+  WeatherNow.prototype.sortCities = function () {
+    if (this.weatherNow == "sunny") {
+      this.cities.sort((a, b) => {
         return parseInt(b.temperature) - parseInt(a.temperature);
       });
-    } else if (weatherNow == "snowflake") {
-      cities.sort((a, b) => {
+    } else if (this.weatherNow == "snowflake") {
+      this.cities.sort((a, b) => {
         return parseInt(b.precipitation) - parseInt(a.precipitation);
       });
     } else {
-      cities.sort((a, b) => {
+      this.cities.sort((a, b) => {
         return parseInt(b.humidity) - parseInt(a.humidity);
       });
     }
-    displayQuantity();
-  }
+    this.displayQuantity();
+  };
 
-  //Function to categorize cities based on weather
-  function categorizeCities(weatherGiven) {
-    weatherNow = weatherGiven;
-    cityValues = Object.values(weather_data);
-    cities = [];
-    sunSymbol.classList.remove("active");
-    coldSymbol.classList.remove("active");
-    rainSymbol.classList.remove("active");
-    if (weatherNow == "sunny") {
-      sunSymbol.classList.add("active");
-      for (let i = 0; i < cityValues.length; i++) {
+  //Function to categorize cities WeatherAppd on weather
+  WeatherNow.prototype.categorizeCities = function (weatherGiven) {
+    this.weatherNow = weatherGiven;
+    this.cityValues = Object.values(this.data);
+    this.cities = [];
+    this.sunSymbol.classList.remove("active");
+    this.coldSymbol.classList.remove("active");
+    this.rainSymbol.classList.remove("active");
+    if (this.weatherNow == "sunny") {
+      this.sunSymbol.classList.add("active");
+      for (let i = 0; i < this.cityValues.length; i++) {
         if (
-          parseInt(cityValues[i].temperature) > 29 &&
-          parseInt(cityValues[i].humidity) < 50 &&
-          parseInt(cityValues[i].precipitation) >= 50
+          parseInt(this.cityValues[i].temperature) > 29 &&
+          parseInt(this.cityValues[i].humidity) < 50 &&
+          parseInt(this.cityValues[i].precipitation) >= 50
         ) {
-          cities.push(cityValues[i]);
+          this.cities.push(this.cityValues[i]);
         }
       }
-    } else if (weatherNow == "snowflake") {
-      coldSymbol.classList.add("active");
-      for (let i = 0; i < cityValues.length; i++) {
+    } else if (this.weatherNow == "snowflake") {
+      this.coldSymbol.classList.add("active");
+      for (let i = 0; i < this.cityValues.length; i++) {
         if (
-          parseInt(cityValues[i].temperature) > 20 &&
-          parseInt(cityValues[i].temperature) < 28 &&
-          parseInt(cityValues[i].humidity) > 50 &&
-          parseInt(cityValues[i].precipitation) < 50
+          parseInt(this.cityValues[i].temperature) > 20 &&
+          parseInt(this.cityValues[i].temperature) < 28 &&
+          parseInt(this.cityValues[i].humidity) > 50 &&
+          parseInt(this.cityValues[i].precipitation) < 50
         ) {
-          cities.push(cityValues[i]);
+          this.cities.push(this.cityValues[i]);
         }
       }
-    } else if (weatherNow == "rainy") {
-      rainSymbol.classList.add("active");
-      for (let i = 0; i < cityValues.length; i++) {
+    } else if (this.weatherNow == "rainy") {
+      this.rainSymbol.classList.add("active");
+      for (let i = 0; i < this.cityValues.length; i++) {
         if (
-          parseInt(cityValues[i].temperature) < 20 &&
-          parseInt(cityValues[i].humidity) >= 50
+          parseInt(this.cityValues[i].temperature) < 20 &&
+          parseInt(this.cityValues[i].humidity) >= 50
         ) {
-          cities.push(cityValues[i]);
+          this.cities.push(this.cityValues[i]);
         }
       }
     }
-    sortCities();
-  }
+    this.sortCities();
+  };
 
-  sunSymbol.addEventListener("click", () => {
-    categorizeCities("sunny");
-  });
-  coldSymbol.addEventListener("click", () => {
-    categorizeCities("snowflake");
-  });
-  rainSymbol.addEventListener("click", () => {
-    categorizeCities("rainy");
-  });
-  quant.addEventListener("click", () => {
-    displayQuantity();
-  });
-  leftScroll.addEventListener("click", () => {
-    document.querySelector(".row").scrollLeft -= 300;
-  });
-  rightScroll.addEventListener("click", () => {
-    document.querySelector(".row").scrollLeft += 300;
-  });
+  WeatherNow.prototype.cardleftScroll = function (val) {
+    document.querySelector(".row").scrollLeft -= val;
+  };
+
+  WeatherNow.prototype.cardrightScroll = function (val) {
+    document.querySelector(".row").scrollLeft += val;
+  };
 
   //Bottom section
   //Function to display the continent cards
-  function displayContinents() {
+  WeatherNow.prototype.displayContinents = function () {
     let continentCards = "";
     let continentCity = document.querySelector(".continent-city");
     for (let i = 0; i < 12; i++) {
-      let curTime = new Date().toLocaleString("en-US", {
-        timeZone: cityValues[i].timeZone,
-        timeStyle: "medium",
-        hourCycle: "h12",
-      });
-      let timeArr = curTime.split(" ");
-      let amPm = timeArr[1];
-      let hourMinSec = timeArr[0].split(":");
-      let time = "," + hourMinSec[0] + ":" + hourMinSec[1] + " " + amPm;
+      let curTime = this.getTime(this.cityValues[i].timeZone);
+      let time = ", " + curTime;
 
       continentCards += `<div class="box">
-        <div class="cont-name">${cityValues[i].timeZone.split("/")[0]} </div>
-        <div class="cont-temp">${cityValues[i].temperature}</div>
-        <div class="city-time">
-        <div>${cityValues[i].cityName}</div>
-        <div>${time}</div>
-        </div>
-        <div class="cont-hum">
-        ${cityValues[i].humidity}
-        <img src="./images/Weather Icons/humidityIcon.svg" alt="Humidity Icon"></div>
-      </div>`;
+      <div class="cont-name">${this.cityValues[i].timeZone.split("/")[0]} </div>
+      <div class="cont-temp">${this.cityValues[i].temperature}</div>
+      <div class="city-time">
+      <div>${this.cityValues[i].cityName}</div>
+      <div>${time}</div>
+      </div>
+      <div class="cont-hum">
+      ${this.cityValues[i].humidity}
+      <img src="./images/Weather Icons/humidityIcon.svg" alt="Humidity Icon"></div>
+    </div>`;
     }
     continentCity.innerHTML = continentCards;
-  }
+  };
 
   //Function to sort continents by alphabetical order
-  function sortContinents() {
-    cityValues = Object.values(weather_data);
-    if (continentOrder == 0) {
-      if (temperatureOrder == 0) {
+  WeatherNow.prototype.sortContinents = function () {
+    this.cityValues = Object.values(this.data);
+    if (this.continentOrder == 0) {
+      if (this.temperatureOrder == 0) {
         {
-          cityValues.sort((a, b) => {
+          this.cityValues.sort((a, b) => {
             if (a.timeZone.split("/")[0] === b.timeZone.split("/")[0]) {
               return parseInt(a.temperature) < parseInt(b.temperature) ? -1 : 1;
             } else {
@@ -448,7 +467,7 @@ import changeToFahrenheit from "./export.js";
           });
         }
       } else {
-        cityValues.sort((a, b) => {
+        this.cityValues.sort((a, b) => {
           if (a.timeZone.split("/")[0] === b.timeZone.split("/")[0]) {
             return parseInt(b.temperature) < parseInt(a.temperature) ? -1 : 1;
           } else {
@@ -457,9 +476,9 @@ import changeToFahrenheit from "./export.js";
         });
       }
     } else {
-      if (temperatureOrder == 0) {
+      if (this.temperatureOrder == 0) {
         {
-          cityValues.sort((a, b) => {
+          this.cityValues.sort((a, b) => {
             if (a.timeZone.split("/")[0] === b.timeZone.split("/")[0]) {
               return parseInt(a.temperature) < parseInt(b.temperature) ? -1 : 1;
             } else {
@@ -470,7 +489,7 @@ import changeToFahrenheit from "./export.js";
           });
         }
       } else {
-        cityValues.sort((a, b) => {
+        this.cityValues.sort((a, b) => {
           if (a.timeZone.split("/")[0] === b.timeZone.split("/")[0]) {
             return parseInt(b.temperature) < parseInt(a.temperature) ? -1 : 1;
           } else {
@@ -479,37 +498,32 @@ import changeToFahrenheit from "./export.js";
         });
       }
     }
-    displayContinents();
-  }
+    this.displayContinents();
+  };
 
-  //Eventlisteners to call sortContinents function on clicking the continent sort and temperature sort buttons
-  document
-    .querySelector("#continent-name")
-    .addEventListener("click", function () {
-      if (continentOrder == 0) {
-        continentOrder = 1;
-        document.querySelector(".cont-arrow").src =
-          "./images/General Images & Icons/arrowUp.svg";
-      } else if (continentOrder == 1) {
-        continentOrder = 0;
-        document.querySelector(".cont-arrow").src =
-          "./images/General Images & Icons/arrowDown.svg";
-      }
-      sortContinents();
-    });
+  WeatherNow.prototype.changeContArrow = function () {
+    if (this.continentOrder == 0) {
+      this.continentOrder = 1;
+      document.querySelector(".cont-arrow").src =
+        "./images/General Images & Icons/arrowUp.svg";
+    } else if (this.continentOrder == 1) {
+      this.continentOrder = 0;
+      document.querySelector(".cont-arrow").src =
+        "./images/General Images & Icons/arrowDown.svg";
+    }
+    this.sortContinents();
+  };
 
-  document.querySelector(".temperature").addEventListener("click", () => {
-    if (temperatureOrder == 0) {
-      temperatureOrder = 1;
+  WeatherNow.prototype.changeTempArrow = function () {
+    if (this.temperatureOrder == 0) {
+      this.temperatureOrder = 1;
       document.querySelector(".temp-arrow").src =
         "./images/General Images & Icons/arrowUp.svg";
     } else {
-      temperatureOrder = 0;
+      this.temperatureOrder = 0;
       document.querySelector(".temp-arrow").src =
         "./images/General Images & Icons/arrowDown.svg";
     }
-    sortContinents();
-  });
-
-  setInterval(sortContinents, 60000);
+    this.sortContinents();
+  };
 })();
