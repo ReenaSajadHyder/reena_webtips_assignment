@@ -1,85 +1,86 @@
 import changeToFahrenheit from "./export.js";
 
-function WeatherApp(data) {
-  this.data = data;
-  this.far = 0;
-  this.city = [];
-  this.monthArr = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  this.weatherNow = "";
-  this.cityValues = [];
-  this.cities = [];
-  this.continentOrder = 0;
-  this.temperatureOrder = 0;
-  this.inputCity = document.querySelector("#city1");
-  this.cityLogo = document.getElementById("city-icon");
-  this.tempC = document.getElementById("tempnum-c");
-  this.tempF = document.getElementById("tempnum-f");
-  this.humNum = document.getElementById("hum-num");
-  this.precipNum = document.getElementById("precip-number");
-  this.realTime = document.getElementById("time");
-  this.date = document.getElementById("date");
-  this.sunSymbol = document.querySelector("#sun-symbol");
-  this.coldSymbol = document.querySelector("#cold-symbol");
-  this.rainSymbol = document.querySelector("#rain-symbol");
-  this.quant = document.querySelector("#quantity");
-  this.leftScroll = document.querySelector(".scroll-left");
-  this.rightScroll = document.querySelector(".scroll-right");
-  this.cardContent = document.querySelector("#row");
+class WeatherApp {
+  constructor(data) {
+    this.data = data;
+    this.far = 0;
+    this.city = [];
+    this.monthArr = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    this.weatherNow = "";
+    this.cityValues = [];
+    this.cities = [];
+    this.continentOrder = 0;
+    this.temperatureOrder = 0;
+    this.inputCity = document.querySelector("#city1");
+    this.cityLogo = document.getElementById("city-icon");
+    this.tempC = document.getElementById("tempnum-c");
+    this.tempF = document.getElementById("tempnum-f");
+    this.humNum = document.getElementById("hum-num");
+    this.precipNum = document.getElementById("precip-number");
+    this.realTime = document.getElementById("time");
+    this.date = document.getElementById("date");
+    this.sunSymbol = document.querySelector("#sun-symbol");
+    this.coldSymbol = document.querySelector("#cold-symbol");
+    this.rainSymbol = document.querySelector("#rain-symbol");
+    this.quant = document.querySelector("#quantity");
+    this.leftScroll = document.querySelector(".scroll-left");
+    this.rightScroll = document.querySelector(".scroll-right");
+    this.cardContent = document.querySelector("#row");
+  }
 }
 
-//function weatherNow inherits WeatherApp
-function WeatherNow(...args) {
-  WeatherApp.apply(this, args);
-  this.inputCity.addEventListener("input", this.callChange.bind(this));
-  this.sunSymbol.addEventListener(
-    "click",
-    this.categorizeCities.bind(this, "sunny")
-  );
-  this.coldSymbol.addEventListener(
-    "click",
-    this.categorizeCities.bind(this, "snowflake")
-  );
-  this.rainSymbol.addEventListener(
-    "click",
-    this.categorizeCities.bind(this, "rainy")
-  );
-  this.quant.addEventListener("click", this.displayQuantity.bind(this));
-  this.leftScroll.addEventListener(
-    "click",
-    this.cardleftScroll.bind(this, 300)
-  );
-  this.rightScroll.addEventListener(
-    "click",
-    this.cardrightScroll.bind(this, 300)
-  );
-  document
-    .querySelector("#continent-name")
-    .addEventListener("click", this.changeContArrow.bind(this));
-  document
-    .querySelector(".temperature")
-    .addEventListener("click", this.changeTempArrow.bind(this));
+//class weatherNow inherits WeatherApp
+class WeatherNow extends WeatherApp {
+  constructor(data) {
+    super(data);
+    this.inputCity.addEventListener("input", this.callChange.bind(this));
+    this.sunSymbol.addEventListener(
+      "click",
+      this.categorizeCities.bind(this, "sunny")
+    );
+    this.coldSymbol.addEventListener(
+      "click",
+      this.categorizeCities.bind(this, "snowflake")
+    );
+    this.rainSymbol.addEventListener(
+      "click",
+      this.categorizeCities.bind(this, "rainy")
+    );
+    this.quant.addEventListener("click", this.displayQuantity.bind(this));
+    this.leftScroll.addEventListener(
+      "click",
+      this.cardleftScroll.bind(this, 300)
+    );
+    this.rightScroll.addEventListener(
+      "click",
+      this.cardrightScroll.bind(this, 300)
+    );
+    document
+      .querySelector("#continent-name")
+      .addEventListener("click", this.changeContArrow.bind(this));
+    document
+      .querySelector(".temperature")
+      .addEventListener("click", this.changeTempArrow.bind(this));
+  }
 }
-
-WeatherNow.prototype = Object.create(WeatherApp.prototype);
 
 (function () {
   fetch("data.json")
     .then((data) => data.json())
     .then((result) => {
-      let obj = new WeatherApp(result);
       let obj2 = new WeatherNow(result);
       obj2.setCity();
       obj2.initCity();
