@@ -80,8 +80,8 @@ function WeatherNow (...args) {
     this.categorizeCities.bind(this, "rainy")
   );
   this.quant.addEventListener("click", this.displayQuantity.bind(this));
-  this.leftScroll.addEventListener("click", this.cardleftScroll.bind(this));
-  this.rightScroll.addEventListener("click", this.cardrightScroll.bind(this));
+  this.leftScroll.addEventListener("click", this.cardleftScroll.bind(this, 300));
+  this.rightScroll.addEventListener("click", this.cardrightScroll.bind(this, 300));
   document
     .querySelector("#continent-name")
     .addEventListener("click", this.changeContArrow.bind(this));
@@ -423,12 +423,12 @@ WeatherNow.prototype.categorizeCities = function (weatherGiven) {
   this.sortCities();
 };
 
-WeatherNow.prototype.cardleftScroll = function () {
-  document.querySelector(".row").scrollLeft -= 300;
+WeatherNow.prototype.cardleftScroll = function (val) {
+  document.querySelector(".row").scrollLeft -= val;
 };
 
-WeatherNow.prototype.cardrightScroll = function () {
-  document.querySelector(".row").scrollLeft += 300;
+WeatherNow.prototype.cardrightScroll = function (val) {
+  document.querySelector(".row").scrollLeft += val;
 };
 
 //Bottom section
