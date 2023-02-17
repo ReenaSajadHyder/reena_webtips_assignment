@@ -55,16 +55,6 @@ function WeatherApp(data) {
 
 }
 
-//function to get the time according to the time zone
-WeatherApp.prototype.getTime = function (timeZone) {
-  let curTime = new Date().toLocaleString("en-US", {
-    timeZone: timeZone,
-    timeStyle: "short",
-    hourCycle: "h12",
-  });
-  return curTime;
-}
-
 //function weatherNow inherits WeatherApp
 function WeatherNow (...args) {
   WeatherApp.apply(this, args);
@@ -93,6 +83,17 @@ function WeatherNow (...args) {
 }
 
 WeatherNow.prototype = Object.create(WeatherApp.prototype);
+
+(function (){
+  //function to get the time according to the time zone
+WeatherApp.prototype.getTime = function (timeZone) {
+  let curTime = new Date().toLocaleString("en-US", {
+    timeZone: timeZone,
+    timeStyle: "short",
+    hourCycle: "h12",
+  });
+  return curTime;
+}
 
 //function to display all the available city options
 WeatherNow.prototype.setCity = function () {
@@ -127,17 +128,6 @@ WeatherNow.prototype.callChange = function () {
     this.setNullVal();
   }
 };
-
-// WeatherNow.prototype.displayTime = function() {
-//   let tZone = this.data[currentCity].timeZone;
-//   let time =tZone? new Date().toLocaleString("en-US", {
-//     timeZone: tZone,
-//     timeStyle: "medium",
-//     hourCycle: "h12",
-//   }):"Nill";
-  
-//   this.realTime.innerHTML = time;
-// }
 
 //function to display weather results for the given city
 WeatherNow.prototype.changeWeather = function () {
@@ -529,4 +519,7 @@ WeatherNow.prototype.changeTempArrow = function () {
   }
   this.sortContinents();
 };
+})();
+
+
 
