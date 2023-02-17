@@ -3,7 +3,7 @@ import changeToFahrenheit from "./export.js";
 fetch("data.json")
   .then((data) => data.json())
   .then((result) => {
-    let obj = new Base(result);
+    let obj = new weatherApp(result);
     obj.setCity();
     obj.initCity();
     obj.categorizeCities("sunny");
@@ -11,7 +11,7 @@ fetch("data.json")
     setInterval(obj.sortContinents.bind(obj, 60000));
   });
 
-function Base(data) {
+function weatherApp(data) {
   this.data = data;
   this.far = 0;
   this.city = [];
@@ -75,7 +75,7 @@ function Base(data) {
 }
 
 //funtion to display all the available city options
-Base.prototype.setCity = function () {
+weatherApp.prototype.setCity = function () {
   this.city = Object.keys(this.data);
   let cityOption = document.querySelector("#city");
   let option = ``;
@@ -86,13 +86,13 @@ Base.prototype.setCity = function () {
 };
 
 //function to display the results for vienna initially
-Base.prototype.initCity = function () {
+weatherApp.prototype.initCity = function () {
   this.inputCity.value = this.city[8];
   this.callChange();
 };
 
-//function to display the weather results based on user's choice
-Base.prototype.callChange = function () {
+//function to display the weather results weatherAppd on user's choice
+weatherApp.prototype.callChange = function () {
   this.city = Object.keys(this.data);
   let cityGiven = this.inputCity.value.toLowerCase();
 
@@ -109,7 +109,7 @@ Base.prototype.callChange = function () {
 };
 
 //function to display weather results for the given city
-Base.prototype.changeWeather = function () {
+weatherApp.prototype.changeWeather = function () {
   let currentCity = this.inputCity.value.toLowerCase();
   let tZone = this.data[currentCity].timeZone;
   let time = new Date().toLocaleString("en-US", {
@@ -211,7 +211,7 @@ Base.prototype.changeWeather = function () {
 };
 
 //function to display null values if user enters invalid city
-Base.prototype.setNullVal = function () {
+weatherApp.prototype.setNullVal = function () {
   this.inputCity.style.borderColor = "red";
 
   this.cityLogo.src = `./images/Icons for cities/defaultIcon.png`;
@@ -243,7 +243,7 @@ Base.prototype.setNullVal = function () {
 
 //Middle Section
 //Function to display cards
-Base.prototype.displayCards = function (slicedArr) {
+weatherApp.prototype.displayCards = function (slicedArr) {
   let weatherCard = " ";
   for (let i = 0; i < slicedArr.length; i++) {
     let curTime = new Date().toLocaleString("en-US", {
@@ -312,7 +312,7 @@ Base.prototype.displayCards = function (slicedArr) {
 };
 
 //Function to display the given number of cities
-Base.prototype.displayQuantity = function () {
+weatherApp.prototype.displayQuantity = function () {
   let quantityLimit = this.quant.value;
   let slicedArr = [];
   if (this.cities.length > quantityLimit) {
@@ -337,7 +337,7 @@ Base.prototype.displayQuantity = function () {
 };
 
 //Function to sort cities
-Base.prototype.sortCities = function () {
+weatherApp.prototype.sortCities = function () {
   if (this.weatherNow == "sunny") {
     this.cities.sort((a, b) => {
       return parseInt(b.temperature) - parseInt(a.temperature);
@@ -354,8 +354,8 @@ Base.prototype.sortCities = function () {
   this.displayQuantity();
 };
 
-//Function to categorize cities based on weather
-Base.prototype.categorizeCities = function (weatherGiven) {
+//Function to categorize cities weatherAppd on weather
+weatherApp.prototype.categorizeCities = function (weatherGiven) {
   this.weatherNow = weatherGiven;
   this.cityValues = Object.values(this.data);
   this.cities = [];
@@ -399,17 +399,17 @@ Base.prototype.categorizeCities = function (weatherGiven) {
   this.sortCities();
 };
 
-Base.prototype.cardleftScroll = function () {
+weatherApp.prototype.cardleftScroll = function () {
   document.querySelector(".row").scrollLeft -= 300;
 };
 
-Base.prototype.cardrightScroll = function () {
+weatherApp.prototype.cardrightScroll = function () {
   document.querySelector(".row").scrollLeft += 300;
 };
 
 //Bottom section
 //Function to display the continent cards
-Base.prototype.displayContinents = function () {
+weatherApp.prototype.displayContinents = function () {
   let continentCards = "";
   let continentCity = document.querySelector(".continent-city");
   for (let i = 0; i < 12; i++) {
@@ -436,7 +436,7 @@ Base.prototype.displayContinents = function () {
 };
 
 //Function to sort continents by alphabetical order
-Base.prototype.sortContinents = function () {
+weatherApp.prototype.sortContinents = function () {
   this.cityValues = Object.values(this.data);
   if (this.continentOrder == 0) {
     if (this.temperatureOrder == 0) {
@@ -482,7 +482,7 @@ Base.prototype.sortContinents = function () {
   this.displayContinents();
 };
 
-Base.prototype.changeContArrow = function () {
+weatherApp.prototype.changeContArrow = function () {
   if (this.continentOrder == 0) {
     this.continentOrder = 1;
     document.querySelector(".cont-arrow").src =
@@ -495,7 +495,7 @@ Base.prototype.changeContArrow = function () {
   this.sortContinents();
 };
 
-Base.prototype.changeTempArrow = function () {
+weatherApp.prototype.changeTempArrow = function () {
   if (this.temperatureOrder == 0) {
     this.temperatureOrder = 1;
     document.querySelector(".temp-arrow").src =
