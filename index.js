@@ -1,6 +1,7 @@
 import changeToFahrenheit from "./export.js";
 
-fetch("data.json")
+(function(){
+  fetch("data.json")
   .then((data) => data.json())
   .then((result) => {
     let obj = new WeatherApp(result);
@@ -11,6 +12,7 @@ fetch("data.json")
     setInterval(obj2.callChange.bind(obj2, 1000));
     setInterval(obj2.sortContinents.bind(obj2, 60000));
   });
+})();
 
 function WeatherApp(data) {
   this.data = data;
