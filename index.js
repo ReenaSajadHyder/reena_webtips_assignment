@@ -40,6 +40,17 @@ class WeatherApp {
     this.rightScroll = document.querySelector(".scroll-right");
     this.cardContent = document.querySelector("#row");
   }
+
+  //function to get the time according to the time zone
+  getTime(timeZone) {
+    let curTime = new Date().toLocaleString("en-US", {
+      timeZone: timeZone,
+      timeStyle: "short",
+      hourCycle: "h12",
+    });
+    return curTime;
+  };
+
 }
 
 //class weatherNow inherits WeatherApp
@@ -75,32 +86,9 @@ class WeatherNow extends WeatherApp {
       .querySelector(".temperature")
       .addEventListener("click", this.changeTempArrow.bind(this));
   }
-}
-
-(function () {
-  fetch("data.json")
-    .then((data) => data.json())
-    .then((result) => {
-      let obj2 = new WeatherNow(result);
-      obj2.setCity();
-      obj2.initCity();
-      obj2.categorizeCities("sunny");
-      setInterval(obj2.callChange.bind(obj2, 1000));
-      setInterval(obj2.sortContinents.bind(obj2),60000);
-    });
-
-  //function to get the time according to the time zone
-  WeatherApp.prototype.getTime = function (timeZone) {
-    let curTime = new Date().toLocaleString("en-US", {
-      timeZone: timeZone,
-      timeStyle: "short",
-      hourCycle: "h12",
-    });
-    return curTime;
-  };
 
   //function to display all the available city options
-  WeatherNow.prototype.setCity = function () {
+  setCity() {
     this.city = Object.keys(this.data);
     let cityOption = document.querySelector("#city");
     let option = ``;
@@ -111,13 +99,13 @@ class WeatherNow extends WeatherApp {
   };
 
   //function to display the results for vienna initially
-  WeatherNow.prototype.initCity = function () {
+  initCity() {
     this.inputCity.value = this.city[8];
     this.callChange();
   };
 
   //function to display the weather results WeatherAppd on user's choice
-  WeatherNow.prototype.callChange = function () {
+  callChange() {
     this.city = Object.keys(this.data);
     let cityGiven = this.inputCity.value.toLowerCase();
 
@@ -134,7 +122,7 @@ class WeatherNow extends WeatherApp {
   };
 
   //function to display weather results for the given city
-  WeatherNow.prototype.changeWeather = function () {
+  changeWeather() {
     let currentCity = this.inputCity.value.toLowerCase();
     let tZone = this.data[currentCity].timeZone;
     let time = new Date().toLocaleString("en-US", {
@@ -236,7 +224,7 @@ class WeatherNow extends WeatherApp {
   };
 
   //function to display null values if user enters invalid city
-  WeatherNow.prototype.setNullVal = function () {
+  setNullVal = function () {
     this.inputCity.style.borderColor = "red";
 
     this.cityLogo.src = `./images/Icons for cities/defaultIcon.png`;
@@ -268,7 +256,7 @@ class WeatherNow extends WeatherApp {
 
   //Middle Section
   //Function to display cards
-  WeatherNow.prototype.displayCards = function (slicedArr) {
+  displayCards(slicedArr) {
     let weatherCard = " ";
     for (let i = 0; i < slicedArr.length; i++) {
       let curTime = this.getTime(slicedArr[i].timeZone);
@@ -332,7 +320,7 @@ class WeatherNow extends WeatherApp {
   };
 
   //Function to display the given number of cities
-  WeatherNow.prototype.displayQuantity = function () {
+  displayQuantity() {
     let quantityLimit = this.quant.value;
     let slicedArr = [];
     if (this.cities.length > quantityLimit) {
@@ -357,7 +345,7 @@ class WeatherNow extends WeatherApp {
   };
 
   //Function to sort cities
-  WeatherNow.prototype.sortCities = function () {
+  sortCities() {
     if (this.weatherNow == "sunny") {
       this.cities.sort((a, b) => {
         return parseInt(b.temperature) - parseInt(a.temperature);
@@ -374,8 +362,8 @@ class WeatherNow extends WeatherApp {
     this.displayQuantity();
   };
 
-  //Function to categorize cities WeatherAppd on weather
-  WeatherNow.prototype.categorizeCities = function (weatherGiven) {
+  //Function to categorize cities based on weather
+  categorizeCities(weatherGiven) {
     this.weatherNow = weatherGiven;
     this.cityValues = Object.values(this.data);
     this.cities = [];
@@ -419,17 +407,17 @@ class WeatherNow extends WeatherApp {
     this.sortCities();
   };
 
-  WeatherNow.prototype.cardleftScroll = function (val) {
+  cardleftScroll(val) {
     document.querySelector(".row").scrollLeft -= val;
   };
 
-  WeatherNow.prototype.cardrightScroll = function (val) {
+  cardrightScroll(val) {
     document.querySelector(".row").scrollLeft += val;
   };
 
   //Bottom section
   //Function to display the continent cards
-  WeatherNow.prototype.displayContinents = function () {
+  displayContinents() {
     let continentCards = "";
     let continentCity = document.querySelector(".continent-city");
     for (let i = 0; i < 12; i++) {
@@ -452,7 +440,7 @@ class WeatherNow extends WeatherApp {
   };
 
   //Function to sort continents by alphabetical order
-  WeatherNow.prototype.sortContinents = function () {
+  sortContinents() {
     this.cityValues = Object.values(this.data);
     if (this.continentOrder == 0) {
       if (this.temperatureOrder == 0) {
@@ -502,7 +490,7 @@ class WeatherNow extends WeatherApp {
     this.displayContinents();
   };
 
-  WeatherNow.prototype.changeContArrow = function () {
+  changeContArrow() {
     if (this.continentOrder == 0) {
       this.continentOrder = 1;
       document.querySelector(".cont-arrow").src =
@@ -515,7 +503,7 @@ class WeatherNow extends WeatherApp {
     this.sortContinents();
   };
 
-  WeatherNow.prototype.changeTempArrow = function () {
+  changeTempArrow() {
     if (this.temperatureOrder == 0) {
       this.temperatureOrder = 1;
       document.querySelector(".temp-arrow").src =
@@ -527,4 +515,17 @@ class WeatherNow extends WeatherApp {
     }
     this.sortContinents();
   };
+}
+
+(function () {
+  fetch("data.json")
+    .then((data) => data.json())
+    .then((result) => {
+      let obj2 = new WeatherNow(result);
+      obj2.setCity();
+      obj2.initCity();
+      obj2.categorizeCities("sunny");
+      setInterval(obj2.callChange.bind(obj2, 1000));
+      setInterval(obj2.sortContinents.bind(obj2),60000);
+    });  
 })();
