@@ -86,7 +86,7 @@ class WeatherNow extends WeatherApp {
       obj2.initCity();
       obj2.categorizeCities("sunny");
       setInterval(obj2.callChange.bind(obj2, 1000));
-      setInterval(obj2.sortContinents.bind(obj2, 60000));
+      setInterval(obj2.sortContinents.bind(obj2),60000);
     });
 
   //function to get the time according to the time zone
