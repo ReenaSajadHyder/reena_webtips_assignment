@@ -120,6 +120,38 @@ class WeatherNow extends WeatherApp {
     }
   }
 
+  //function to fetch the details of the city given by the user
+  async fetchCityDetails() 
+  {
+    let currentCity = this.inputCity.value;
+    const response = await fetch(
+      `https://soliton.glitch.me?city=${currentCity}`
+    );
+    const data = await response.json();
+    const result = await data;
+    const response2 = await fetch(
+      "https://soliton.glitch.me/hourly-forecast",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          ...result,
+          hours: "5",
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }
+    );
+    const data2 = await response2.json();
+    const result2 = await data2;
+    for (let i = 0; i < 5; i++) {
+      this.setNextFiveHrsTemp(
+        this.data[`${currentCity}`].temperature,
+        result2
+      );
+    }
+  }
+
   //function to display weather results for the given city
   changeWeather() {
     let currentCity = this.inputCity.value;
@@ -182,34 +214,7 @@ class WeatherNow extends WeatherApp {
       time++;
     }
 
-    (async function () {
-      const response = await fetch(
-        `https://soliton.glitch.me?city=${currentCity}`
-      );
-      const data = await response.json();
-      const result = await data;
-      const response2 = await fetch(
-        "https://soliton.glitch.me/hourly-forecast",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            ...result,
-            hours: "5",
-          }),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        }
-      );
-      const data2 = await response2.json();
-      const result2 = await data2;
-      for (let i = 0; i < 5; i++) {
-        this.setNextFiveHrsTemp(
-          this.data[`${currentCity}`].temperature,
-          result2
-        );
-      }
-    })();
+    this.fetchCityDetails();
   }
 
   //function to display the temperature and weather symbols for the next five hours
