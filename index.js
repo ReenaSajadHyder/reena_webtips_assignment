@@ -49,8 +49,7 @@ class WeatherApp {
       hourCycle: "h12",
     });
     return curTime;
-  };
-
+  }
 }
 
 //class weatherNow inherits WeatherApp
@@ -96,18 +95,18 @@ class WeatherNow extends WeatherApp {
       option += `<option>${this.city[i]}</option>`;
     }
     cityOption.innerHTML = option;
-  };
+  }
 
   //function to display the results for vienna initially
   initCity() {
     this.inputCity.value = this.city[8];
     this.callChange();
-  };
+  }
 
   //function to display the weather results WeatherAppd on user's choice
   callChange() {
     this.city = Object.keys(this.data);
-    let cityGiven = this.inputCity.value.toLowerCase();
+    let cityGiven = this.inputCity.value;
 
     let flag = 0;
     for (let i = 0; i < this.city.length; i++) {
@@ -119,25 +118,17 @@ class WeatherNow extends WeatherApp {
     if (flag == 0) {
       this.setNullVal();
     }
-  };
+  }
 
   //function to display weather results for the given city
   changeWeather() {
-    let currentCity = this.inputCity.value.toLowerCase();
+    let currentCity = this.inputCity.value;
     let tZone = this.data[currentCity].timeZone;
     let time = new Date().toLocaleString("en-US", {
       timeZone: tZone,
       timeStyle: "medium",
       hourCycle: "h12",
     });
-
-    const sixHoursTemp = [
-      parseInt(this.data[currentCity].temperature.slice(0, -2)),
-    ];
-    for (let i = 1; i < 5; i++) {
-      sixHoursTemp[i] = parseInt(this.data[currentCity].nextFiveHrs[i - 1]);
-    }
-    sixHoursTemp[5] = parseInt(this.data[currentCity].temperature);
 
     this.cityLogo.src = `./images/Icons for cities/${currentCity}.svg`;
 
@@ -191,40 +182,69 @@ class WeatherNow extends WeatherApp {
       time++;
     }
 
+    fetch(`https://soliton.glitch.me?city=${currentCity}`)
+      .then((data) => data.json())
+      .then((result) => {
+        fetch("https://soliton.glitch.me/hourly-forecast", {
+          method: "POST",
+          body: JSON.stringify({
+            ...result,
+            hours: "5",
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        })
+          .then((data) => data.json())
+          .then((result) => {
+            for (let i = 0; i < 5; i++) {
+              this.setNextFiveHrsTemp(
+                this.data[`${currentCity}`].temperature,
+                result
+              );
+            }
+          });
+      });
+  }
+
+  //function to display the temperature and weather symbols for the next five hours
+  setNextFiveHrsTemp(currentTemp, hourlyTempObj) {
+    let hourlyTemp = [];
+    let weatherSymbols = [];
+
     for (let i = 0; i < 6; i++) {
-      if (sixHoursTemp[i] < 0) {
+      weatherSymbols[i] = document.getElementById(`icon-${i + 1}`);
+    }
+
+    hourlyTemp[0] = parseInt(currentTemp);
+
+    for (let i = 1; i < 6; i++) {
+      hourlyTemp[i] = parseInt(hourlyTempObj["temperature"][i - 1]);
+    }
+
+    for (let i = 0; i < 6; i++) {
+      document.getElementById(`temp-num${i + 1}`).innerHTML = hourlyTemp[i];
+      if (hourlyTemp[i] < 0) {
         document.getElementById(`icon-${i + 1}`).src =
           "./images/Weather Icons/snowflakeIcon.svg";
-      } else if (sixHoursTemp[i] < 18) {
+      } else if (hourlyTemp[i] < 18) {
         document.getElementById(`icon-${i + 1}`).src =
           "./images/Weather Icons/rainyIcon.svg";
-      } else if (sixHoursTemp[i] >= 18 && sixHoursTemp[i] <= 22) {
+      } else if (hourlyTemp[i] >= 18 && hourlyTemp[i] <= 22) {
         document.getElementById(`icon-${i + 1}`).src =
           "./images/Weather Icons/windyIcon.svg";
-      } else if (sixHoursTemp[i] >= 23 && sixHoursTemp[i] <= 29) {
+      } else if (hourlyTemp[i] >= 23 && hourlyTemp[i] <= 29) {
         document.getElementById(`icon-${i + 1}`).src =
           "./images/Weather Icons/cloudyIcon.svg";
-      } else if (sixHoursTemp[i] > 29) {
+      } else if (hourlyTemp[i] > 29) {
         document.getElementById(`icon-${i + 1}`).src =
           "./images/Weather Icons/sunnyIcon.svg";
       }
     }
-
-    document.getElementById("temp-num1").innerHTML = this.data[
-      currentCity
-    ].temperature.slice(0, -2);
-    for (let i = 2; i < 6; i++) {
-      document.getElementById(`temp-num${i}`).innerHTML = this.data[
-        currentCity
-      ].nextFiveHrs[i - 2].slice(0, -2);
-    }
-    document.getElementById("temp-num6").innerHTML = this.data[
-      currentCity
-    ].temperature.slice(0, -2);
-  };
+  }
 
   //function to display null values if user enters invalid city
-  setNullVal = function () {
+  setNullVal() {
     this.inputCity.style.borderColor = "red";
 
     this.cityLogo.src = `./images/Icons for cities/defaultIcon.png`;
@@ -252,7 +272,7 @@ class WeatherNow extends WeatherApp {
     for (let i = 1; i < 7; i++) {
       document.getElementById(`temp-num${i}`).innerHTML = "-";
     }
-  };
+  }
 
   //Middle Section
   //Function to display cards
@@ -317,7 +337,7 @@ class WeatherNow extends WeatherApp {
         i
       ].cityName.toLowerCase()}.svg ')`;
     }
-  };
+  }
 
   //Function to display the given number of cities
   displayQuantity() {
@@ -342,7 +362,7 @@ class WeatherNow extends WeatherApp {
       this.cardContent.style.justifyContent = "center";
     }
     this.displayCards(slicedArr);
-  };
+  }
 
   //Function to sort cities
   sortCities() {
@@ -360,7 +380,7 @@ class WeatherNow extends WeatherApp {
       });
     }
     this.displayQuantity();
-  };
+  }
 
   //Function to categorize cities based on weather
   categorizeCities(weatherGiven) {
@@ -405,15 +425,15 @@ class WeatherNow extends WeatherApp {
       }
     }
     this.sortCities();
-  };
+  }
 
   cardleftScroll(val) {
     document.querySelector(".row").scrollLeft -= val;
-  };
+  }
 
   cardrightScroll(val) {
     document.querySelector(".row").scrollLeft += val;
-  };
+  }
 
   //Bottom section
   //Function to display the continent cards
@@ -437,7 +457,7 @@ class WeatherNow extends WeatherApp {
     </div>`;
     }
     continentCity.innerHTML = continentCards;
-  };
+  }
 
   //Function to sort continents by alphabetical order
   sortContinents() {
@@ -488,44 +508,48 @@ class WeatherNow extends WeatherApp {
       }
     }
     this.displayContinents();
-  };
+  }
 
   changeContArrow() {
     if (this.continentOrder == 0) {
       this.continentOrder = 1;
       document.querySelector(".cont-arrow").src =
-        "./images/General Images & Icons/arrowUp.svg";
+        "./images/General Images & Icons/arrowDown.svg";
     } else if (this.continentOrder == 1) {
       this.continentOrder = 0;
       document.querySelector(".cont-arrow").src =
-        "./images/General Images & Icons/arrowDown.svg";
+        "./images/General Images & Icons/arrowUp.svg";
     }
     this.sortContinents();
-  };
+  }
 
   changeTempArrow() {
     if (this.temperatureOrder == 0) {
       this.temperatureOrder = 1;
       document.querySelector(".temp-arrow").src =
-        "./images/General Images & Icons/arrowUp.svg";
+        "./images/General Images & Icons/arrowDown.svg";
     } else {
       this.temperatureOrder = 0;
       document.querySelector(".temp-arrow").src =
-        "./images/General Images & Icons/arrowDown.svg";
+        "./images/General Images & Icons/arrowUp.svg";
     }
     this.sortContinents();
-  };
+  }
 }
 
 (function () {
-  fetch("data.json")
+  fetch("https://soliton.glitch.me/all-timezone-cities")
     .then((data) => data.json())
     .then((result) => {
-      let obj2 = new WeatherNow(result);
-      obj2.setCity();
-      obj2.initCity();
-      obj2.categorizeCities("sunny");
-      setInterval(obj2.callChange.bind(obj2, 1000));
-      setInterval(obj2.sortContinents.bind(obj2),60000);
-    });  
+      let listOfCities = {};
+      for (let i = 0; i < result.length; i++) {
+        listOfCities[result[i]["cityName"]] = result[i];
+      }
+      let obj = new WeatherNow(listOfCities);
+      obj.setCity();
+      obj.initCity();
+      obj.categorizeCities("sunny");
+      obj.sortContinents();
+      setInterval(obj.sortContinents.bind(obj), 60000);
+    });
 })();
