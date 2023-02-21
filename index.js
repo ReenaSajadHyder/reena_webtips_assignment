@@ -537,10 +537,10 @@ class WeatherNow extends WeatherApp {
   }
 }
 
-(function () {
-  fetch("https://soliton.glitch.me/all-timezone-cities")
-    .then((data) => data.json())
-    .then((result) => {
+(async function () {
+  const response = await fetch("https://soliton.glitch.me/all-timezone-cities");
+    const data = await response.json();
+    const result = await data;
       let listOfCities = {};
       for (let i = 0; i < result.length; i++) {
         listOfCities[result[i]["cityName"]] = result[i];
@@ -551,5 +551,4 @@ class WeatherNow extends WeatherApp {
       obj.categorizeCities("sunny");
       obj.sortContinents();
       setInterval(obj.sortContinents.bind(obj), 60000);
-    });
 })();
