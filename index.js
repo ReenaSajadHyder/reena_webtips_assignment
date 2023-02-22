@@ -1,9 +1,11 @@
-import {changeToFahrenheit,fetchData,fetchCityDetails} from "./export.js";
+import { changeToFahrenheit, fetchData, fetchCityDetails } from "./export.js";
 
 class WeatherApp {
   constructor(data) {
     this.data = data;
     this.far = 0;
+    this.cityFlag = 0;
+    this.cityGiven = "";
     this.city = [];
     this.monthArr = [
       "Jan",
@@ -24,6 +26,7 @@ class WeatherApp {
     this.cities = [];
     this.continentOrder = 0;
     this.temperatureOrder = 0;
+    // this.currentCity = "Vienna"
     this.inputCity = document.querySelector("#city1");
     this.cityLogo = document.getElementById("city-icon");
     this.tempC = document.getElementById("tempnum-c");
@@ -95,6 +98,7 @@ class WeatherNow extends WeatherApp {
       option += `<option>${this.city[i]}</option>`;
     }
     cityOption.innerHTML = option;
+    // this.callChange();
   }
 
   //function to display the results for vienna initially
@@ -103,14 +107,20 @@ class WeatherNow extends WeatherApp {
     this.callChange();
   }
 
+  //function to change the top section to show details of the city tile that is clicked
+  clickCity(e) {
+    this.inputCity.value=e.currentTarget.id;
+    this.callChange();
+  }
+
   //function to display the weather results WeatherAppd on user's choice
   callChange() {
     this.city = Object.keys(this.data);
-    let cityGiven = this.inputCity.value;
+    this.cityGiven = this.inputCity.value;
 
     let flag = 0;
     for (let i = 0; i < this.city.length; i++) {
-      if (cityGiven === this.city[i]) {
+      if (this.cityGiven === this.city[i]) {
         this.changeWeather();
         flag = 1;
       }
@@ -268,9 +278,9 @@ class WeatherNow extends WeatherApp {
         "-" +
         dateArr[2];
 
-      weatherCard += `<div class="card" id="card-${i}">
+      weatherCard += `<div class="card" id=${slicedArr[i]["cityName"]}>
       <div class="city-name-temp">
-        <p><strong> ${slicedArr[i]["cityName"]}</strong></p>
+        <p id="clickCityName"><strong> ${slicedArr[i]["cityName"]}</strong></p>
         <p>
           <img
             class="sunny-icon"
@@ -310,11 +320,15 @@ class WeatherNow extends WeatherApp {
 
     for (let i = 0; i < slicedArr.length; i++) {
       document.querySelector(
-        `#card-${[i]}`
+        `#${slicedArr[i]["cityName"]}`
       ).style.backgroundImage = `url('./images/Icons for cities/${slicedArr[
         i
       ].cityName.toLowerCase()}.svg ')`;
     }
+
+    document.querySelectorAll(".card").forEach((element) => {
+      element.addEventListener("click", this.clickCity.bind(this));
+  });
   }
 
   //Function to display the given number of cities
@@ -422,11 +436,11 @@ class WeatherNow extends WeatherApp {
       let curTime = this.getTime(this.cityValues[i].timeZone);
       let time = ", " + curTime;
 
-      continentCards += `<div class="box">
+      continentCards += `<div class="box" id="${this.cityValues[i].cityName}">
       <div class="cont-name">${this.cityValues[i].timeZone.split("/")[0]} </div>
       <div class="cont-temp">${this.cityValues[i].temperature}</div>
       <div class="city-time">
-      <div>${this.cityValues[i].cityName}</div>
+      <div id="clickCityName">${this.cityValues[i].cityName}</div>
       <div>${time}</div>
       </div>
       <div class="cont-hum">
@@ -435,6 +449,10 @@ class WeatherNow extends WeatherApp {
     </div>`;
     }
     continentCity.innerHTML = continentCards;
+
+    document.querySelectorAll(".box").forEach((element) => {
+      element.addEventListener("click", this.clickCity.bind(this));
+  });
   }
 
   //Function to sort continents by alphabetical order
@@ -517,7 +535,7 @@ class WeatherNow extends WeatherApp {
 
 (async function () {
   let url = "https://soliton.glitch.me/all-timezone-cities";
-  let result = await fetchData(url); 
+  let result = await fetchData(url);
   let listOfCities = {};
   for (let i = 0; i < result.length; i++) {
     listOfCities[result[i]["cityName"]] = result[i];
