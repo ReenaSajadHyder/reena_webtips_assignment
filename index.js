@@ -88,7 +88,7 @@ class WeatherNow extends WeatherApp {
 
   //function to display all the available city options
   setCity() {
-    this.city = Object.keys(this.data);
+    this.city = weatherObject.keys(this.data);
     let cityOption = document.querySelector("#city");
     let option = ``;
     for (let i = 0; i < this.city.length; i++) {
@@ -105,7 +105,7 @@ class WeatherNow extends WeatherApp {
 
   //function to display the weather results WeatherAppd on user's choice
   callChange() {
-    this.city = Object.keys(this.data);
+    this.city = weatherObject.keys(this.data);
     let cityGiven = this.inputCity.value;
 
     let flag = 0;
@@ -218,7 +218,7 @@ class WeatherNow extends WeatherApp {
   }
 
   //function to display the temperature and weather symbols for the next five hours
-  setNextFiveHrsTemp(currentTemp, hourlyTempObj) {
+  setNextFiveHrsTemp(currentTemp, hourlyTempweatherObj) {
     let hourlyTemp = [];
     let weatherSymbols = [];
 
@@ -229,7 +229,7 @@ class WeatherNow extends WeatherApp {
     hourlyTemp[0] = parseInt(currentTemp);
 
     for (let i = 1; i < 6; i++) {
-      hourlyTemp[i] = parseInt(hourlyTempObj["temperature"][i - 1]);
+      hourlyTemp[i] = parseInt(hourlyTempweatherObj["temperature"][i - 1]);
     }
 
     for (let i = 0; i < 6; i++) {
@@ -395,7 +395,7 @@ class WeatherNow extends WeatherApp {
   //Function to categorize cities based on weather
   categorizeCities(weatherGiven) {
     this.weatherNow = weatherGiven;
-    this.cityValues = Object.values(this.data);
+    this.cityValues = weatherObject.values(this.data);
     this.cities = [];
     this.sunSymbol.classList.remove("active");
     this.coldSymbol.classList.remove("active");
@@ -471,7 +471,7 @@ class WeatherNow extends WeatherApp {
 
   //Function to sort continents by alphabetical order
   sortContinents() {
-    this.cityValues = Object.values(this.data);
+    this.cityValues = weatherObject.values(this.data);
     if (this.continentOrder == 0) {
       if (this.temperatureOrder == 0) {
         {
@@ -555,10 +555,10 @@ class WeatherNow extends WeatherApp {
   for (let i = 0; i < result.length; i++) {
     listOfCities[result[i]["cityName"]] = result[i];
   }
-  let obj = new WeatherNow(listOfCities);
-  obj.setCity();
-  obj.initCity();
-  obj.categorizeCities("sunny");
-  obj.sortContinents();
-  setInterval(obj.sortContinents.bind(obj), 60000);
+  let weatherObj = new WeatherNow(listOfCities);
+  weatherObj.setCity();
+  weatherObj.initCity();
+  weatherObj.categorizeCities("sunny");
+  weatherObj.sortContinents();
+  setInterval(weatherObj.sortContinents.bind(weatherObj), 60000);
 })();
