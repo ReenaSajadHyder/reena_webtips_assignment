@@ -88,7 +88,7 @@ class WeatherNow extends WeatherApp {
 
   //function to display all the available city options
   setCity() {
-    this.city = weatherObject.keys(this.data);
+    this.city = Object.keys(this.data);
     let cityOption = document.querySelector("#city");
     let option = ``;
     for (let i = 0; i < this.city.length; i++) {
@@ -105,7 +105,7 @@ class WeatherNow extends WeatherApp {
 
   //function to display the weather results WeatherAppd on user's choice
   callChange() {
-    this.city = weatherObject.keys(this.data);
+    this.city = Object.keys(this.data);
     let cityGiven = this.inputCity.value;
 
     let flag = 0;
@@ -395,7 +395,7 @@ class WeatherNow extends WeatherApp {
   //Function to categorize cities based on weather
   categorizeCities(weatherGiven) {
     this.weatherNow = weatherGiven;
-    this.cityValues = weatherObject.values(this.data);
+    this.cityValues = Object.values(this.data);
     this.cities = [];
     this.sunSymbol.classList.remove("active");
     this.coldSymbol.classList.remove("active");
@@ -471,7 +471,7 @@ class WeatherNow extends WeatherApp {
 
   //Function to sort continents by alphabetical order
   sortContinents() {
-    this.cityValues = weatherObject.values(this.data);
+    this.cityValues = Object.values(this.data);
     if (this.continentOrder == 0) {
       if (this.temperatureOrder == 0) {
         {
