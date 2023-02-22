@@ -44,6 +44,7 @@
   grid-template-rows: 50% 50%;
   padding: 2%;
   transition: 0.3s;
+  cursor: pointer;
 }
 .box:hover {
   transform: scale(1.05);
