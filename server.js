@@ -11,7 +11,6 @@ app.use(express.static("public"))
 app.use(express.json())
 
 app.get("/", (req, res) => {
-  console.log(req.url);
   res.render("/public/index.html");
 })
 
