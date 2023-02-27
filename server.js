@@ -10,6 +10,7 @@ const {
 } = require("./timeZone");
 let currentCity = "";
 
+
 var appServer = http.createServer((req, res) => {
   let file = path.join(req.url === "/" ? "index.html" : req.url.slice(1));
   let contentType = "text/html";
@@ -67,6 +68,6 @@ appServer.listen(Port, (err) => {
   if (err) {
     console.log(err);
   } else {
-    console.log("Server connected!");
+    console.log("Server connected at port number 5000 with url http://localhost:5000/");
   }
 });
