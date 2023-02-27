@@ -26,7 +26,6 @@ class WeatherApp {
     this.cities = [];
     this.continentOrder = 0;
     this.temperatureOrder = 0;
-    // this.currentCity = "Vienna"
     this.inputCity = document.querySelector("#city1");
     this.cityLogo = document.getElementById("city-icon");
     this.tempC = document.getElementById("tempnum-c");
@@ -109,7 +108,7 @@ class WeatherNow extends WeatherApp {
 
   //function to change the top section to show details of the city tile that is clicked
   clickCity(e) {
-    this.inputCity.value=e.currentTarget.id;
+    this.inputCity.value = e.currentTarget.id;
     this.callChange();
   }
 
@@ -140,13 +139,13 @@ class WeatherNow extends WeatherApp {
       hourCycle: "h12",
     });
 
-    this.cityLogo.src = `./images/Icons for cities/${currentCity}.svg`;
+    this.cityLogo.src = `./images/Iconsforcities/${currentCity}.svg`;
 
     this.inputCity.style.borderColor = "black";
 
     this.tempC.innerHTML = this.data[currentCity].temperature;
 
-    let cel = this.data[currentCity].temperature.slice(0, -2);
+    let cel = parseInt(this.data[currentCity].temperature);
     this.far = changeToFahrenheit(cel);
     this.far = this.far.toPrecision(3);
     this.far += ` F`;
@@ -214,19 +213,19 @@ class WeatherNow extends WeatherApp {
       document.getElementById(`temp-num${i + 1}`).innerHTML = hourlyTemp[i];
       if (hourlyTemp[i] < 0) {
         document.getElementById(`icon-${i + 1}`).src =
-          "./images/Weather Icons/snowflakeIcon.svg";
+          "./images/WeatherIcons/snowflakeIcon.svg";
       } else if (hourlyTemp[i] < 18) {
         document.getElementById(`icon-${i + 1}`).src =
-          "./images/Weather Icons/rainyIcon.svg";
+          "./images/WeatherIcons/rainyIcon.svg";
       } else if (hourlyTemp[i] >= 18 && hourlyTemp[i] <= 22) {
         document.getElementById(`icon-${i + 1}`).src =
-          "./images/Weather Icons/windyIcon.svg";
+          "./images/WeatherIcons/windyIcon.svg";
       } else if (hourlyTemp[i] >= 23 && hourlyTemp[i] <= 29) {
         document.getElementById(`icon-${i + 1}`).src =
-          "./images/Weather Icons/cloudyIcon.svg";
+          "./images/WeatherIcons/cloudyIcon.svg";
       } else if (hourlyTemp[i] > 29) {
         document.getElementById(`icon-${i + 1}`).src =
-          "./images/Weather Icons/sunnyIcon.svg";
+          "./images/WeatherIcons/sunnyIcon.svg";
       }
     }
   }
@@ -235,7 +234,7 @@ class WeatherNow extends WeatherApp {
   setNullVal() {
     this.inputCity.style.borderColor = "red";
 
-    this.cityLogo.src = `./images/Icons for cities/defaultIcon.png`;
+    this.cityLogo.src = `./images/Iconsforcities/defaultIcon.png`;
 
     this.tempC.innerHTML = "-";
 
@@ -254,7 +253,7 @@ class WeatherNow extends WeatherApp {
 
     for (let i = 0; i < 6; i++) {
       document.getElementById(`icon-${i + 1}`).src =
-        "./images/Weather Icons/warning2.png";
+        "./images/WeatherIcons/warning2.png";
     }
 
     for (let i = 1; i < 7; i++) {
@@ -284,7 +283,7 @@ class WeatherNow extends WeatherApp {
         <p>
           <img
             class="sunny-icon"
-            src="./images/Weather Icons/${this.weatherNow}Icon.svg"
+            src="./images/WeatherIcons/${this.weatherNow}Icon.svg"
             alt="sunnyicon"
           />
           <strong>${slicedArr[i]["temperature"]}</strong>
@@ -299,7 +298,7 @@ class WeatherNow extends WeatherApp {
       <div class="hp">
         <p>
           <img
-            src="./images/Weather Icons/humidityIcon.svg"
+            src="./images/WeatherIcons/humidityIcon.svg"
             alt="humidity icon"
           />
           ${slicedArr[i]["humidity"]}
@@ -308,7 +307,7 @@ class WeatherNow extends WeatherApp {
       <div class="hp">
         <p>
           <img
-            src="./images/Weather Icons/precipitationIcon.svg"
+            src="./images/WeatherIcons/precipitationIcon.svg"
             alt="precipitation icon"
           />
           ${slicedArr[i]["precipitation"]}
@@ -321,14 +320,14 @@ class WeatherNow extends WeatherApp {
     for (let i = 0; i < slicedArr.length; i++) {
       document.querySelector(
         `#${slicedArr[i]["cityName"]}`
-      ).style.backgroundImage = `url('./images/Icons for cities/${slicedArr[
+      ).style.backgroundImage = `url('./images/Iconsforcities/${slicedArr[
         i
       ].cityName.toLowerCase()}.svg ')`;
     }
 
     document.querySelectorAll(".card").forEach((element) => {
       element.addEventListener("click", this.clickCity.bind(this));
-  });
+    });
   }
 
   //Function to display the given number of cities
@@ -445,14 +444,14 @@ class WeatherNow extends WeatherApp {
       </div>
       <div class="cont-hum">
       ${this.cityValues[i].humidity}
-      <img src="./images/Weather Icons/humidityIcon.svg" alt="Humidity Icon"></div>
+      <img src="./images/WeatherIcons/humidityIcon.svg" alt="Humidity Icon"></div>
     </div>`;
     }
     continentCity.innerHTML = continentCards;
 
     document.querySelectorAll(".box").forEach((element) => {
       element.addEventListener("click", this.clickCity.bind(this));
-  });
+    });
   }
 
   //Function to sort continents by alphabetical order
@@ -510,11 +509,11 @@ class WeatherNow extends WeatherApp {
     if (this.continentOrder == 0) {
       this.continentOrder = 1;
       document.querySelector(".cont-arrow").src =
-        "./images/General Images & Icons/arrowDown.svg";
+        "./images/GeneralImages&Icons/arrowDown.svg";
     } else if (this.continentOrder == 1) {
       this.continentOrder = 0;
       document.querySelector(".cont-arrow").src =
-        "./images/General Images & Icons/arrowUp.svg";
+        "./images/GeneralImages&Icons/arrowUp.svg";
     }
     this.sortContinents();
   }
@@ -523,18 +522,18 @@ class WeatherNow extends WeatherApp {
     if (this.temperatureOrder == 0) {
       this.temperatureOrder = 1;
       document.querySelector(".temp-arrow").src =
-        "./images/General Images & Icons/arrowDown.svg";
+        "./images/GeneralImages&Icons/arrowDown.svg";
     } else {
       this.temperatureOrder = 0;
       document.querySelector(".temp-arrow").src =
-        "./images/General Images & Icons/arrowUp.svg";
+        "./images/GeneralImages&Icons/arrowUp.svg";
     }
     this.sortContinents();
   }
 }
 
 (async function () {
-  let url = "https://soliton.glitch.me/all-timezone-cities";
+  let url = "http://localhost:5000/allCities";
   let result = await fetchData(url);
   let listOfCities = {};
   for (let i = 0; i < result.length; i++) {

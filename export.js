@@ -15,10 +15,10 @@ export async function fetchData(url) {
 //fetch function for hourly time
 export async function fetchCityDetails(currentCity, data, setNextFiveHrsTemp) 
   {
-    let url = `https://soliton.glitch.me?city=${currentCity}`;
+    let url = `http://localhost:5000/cityData?city=${currentCity}`;
     const result = await fetchData(url);
     const response2 = await fetch(
-      "https://soliton.glitch.me/hourly-forecast",
+      "http://localhost:5000/nextFiveHours",
       {
         method: "POST",
         body: JSON.stringify({
