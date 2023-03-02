@@ -9,7 +9,8 @@
   },
   "author": "Reena Sajad",
   "license": "ISC",
-  "dependencies": {
-    "express": "^4.18.2"
+  "devDependencies": {
+    "express": "^4.18.2",
+    "prettier": "^2.8.4"
   }
 }

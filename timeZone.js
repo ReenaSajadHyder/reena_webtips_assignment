@@ -1,5 +1,3 @@
-
-
 // Maintain All methods and data inside WeatherForTimeZone class
 class WeatherForTimeZones {
   constructor() {
@@ -25,7 +23,7 @@ class WeatherForTimeZones {
       Perth: this.getTimeForZone({ timeZone: "Australia/Perth" }),
       Auckland: this.getTimeForZone({ timeZone: "pacific/Auckland" }),
       Vostok: this.getTimeForZone({ timeZone: "Antarctica/Vostok" }),
-      Troll: this.getTimeForZone({ timeZone: "Antarctica/Troll" })
+      Troll: this.getTimeForZone({ timeZone: "Antarctica/Troll" }),
     };
     this.timeZoneKeys = Object.keys(this.timeZones);
   }
@@ -36,8 +34,11 @@ class WeatherForTimeZones {
     return time.toLocaleString();
   }
   // return temperature btw min and max range
-  getTempBtwRange(min, max,appendDegC =true) {
-    if(appendDegC)return Math.floor(Math.random() * (max - min) + min) + "<span>&#176;</span>C";
+  getTempBtwRange(min, max, appendDegC = true) {
+    if (appendDegC)
+      return (
+        Math.floor(Math.random() * (max - min) + min) + "<span>&#176;</span>C"
+      );
     return Math.floor(Math.random() * (max - min) + min);
   }
   // Conditions: Max temp 50 C (0% humid) & 0 C (100% humid)
@@ -47,10 +48,10 @@ class WeatherForTimeZones {
     return parseInt((-100 / 48) * temp + 100) + "%";
   }
   // Conditions: Max temp 50 C (100% precip) & 0 C (0% precip)
-  getPrecipitation(temp){
+  getPrecipitation(temp) {
     if (temp < 0) return "0%";
     if (temp >= 50) return "100%";
-    return parseInt(temp*2)+"%";
+    return parseInt(temp * 2) + "%";
   }
   // complete info of weather for particular city
   getWeather(city, timeZone, minTemp, maxTemp) {
@@ -58,10 +59,12 @@ class WeatherForTimeZones {
     return {
       cityName: city,
       dateAndTime: this.getTimeForZone({ timeZone: timeZone }),
-      timeZone:timeZone,
+      timeZone: timeZone,
       temperature: temp,
       humidity: this.getHumidity(Number(temp.split("<span>&#176;</span>C")[0])),
-      precipitation: this.getPrecipitation(Number(temp.split("<span>&#176;</span>C")[0]))
+      precipitation: this.getPrecipitation(
+        Number(temp.split("<span>&#176;</span>C")[0])
+      ),
     };
   }
   // return time date city for one city
@@ -69,11 +72,11 @@ class WeatherForTimeZones {
     let self = this;
     if (this.timeZoneKeys.includes(cityName)) {
       return {
-        city_Date_Time_Name: `${self.timeZones[cityName]}, ${cityName}`
+        city_Date_Time_Name: `${self.timeZones[cityName]}, ${cityName}`,
       };
     } else {
       return {
-        error: "Please request a valid city name"
+        error: "Please request a valid city name",
       };
     }
   }
@@ -83,31 +86,33 @@ class WeatherForTimeZones {
     let city = cityTDN.replace(/\s/g, "").split(",")[2];
     for (let i = 0; i < lastForeCast.length; i++) {
       if (lastForeCast[i].cityName.toLowerCase() === city.toLowerCase()) {
-        let temp = Number(lastForeCast[i].temperature.split("<span>&#176;</span>C")[0]);
+        let temp = Number(
+          lastForeCast[i].temperature.split("<span>&#176;</span>C")[0]
+        );
         let data = {
           hours: [`+1 Hour`, `+2 Hour`, `+3 Hour`, `+4 Hour`, `+5 Hour`],
           temperature: [
             `${temp}<span>&#176;</span>C`,
-            `${temp + this.getTempBtwRange(0,6,false)}<span>&#176;</span>C`,
-            `${temp + this.getTempBtwRange(0,6,false)}<span>&#176;</span>C`,
-            `${temp - this.getTempBtwRange(0,5,false)}<span>&#176;</span>C`,
-            `${temp - this.getTempBtwRange(0,5,false)}<span>&#176;</span>C`
-          ]
+            `${temp + this.getTempBtwRange(0, 6, false)}<span>&#176;</span>C`,
+            `${temp + this.getTempBtwRange(0, 6, false)}<span>&#176;</span>C`,
+            `${temp - this.getTempBtwRange(0, 5, false)}<span>&#176;</span>C`,
+            `${temp - this.getTempBtwRange(0, 5, false)}<span>&#176;</span>C`,
+          ],
         };
         return {
           hours: data.hours.splice(0, nHours),
-          temperature: data.temperature.splice(0, nHours)
+          temperature: data.temperature.splice(0, nHours),
         };
       }
     }
     return {
-      error: "No valid city found.Check API Doc"
+      error: "No valid city found.Check API Doc",
     };
   }
 }
 const WeatherIns = new WeatherForTimeZones();
 // export functions
-const timeForOneCity = cityName => {
+const timeForOneCity = (cityName) => {
   return WeatherIns.getTimeForOneCity(cityName);
 };
 const nextNhoursWeather = (cityTDN, hours, lastForecast) => {
@@ -136,11 +141,11 @@ const allTimeZones = () => {
     WeatherIns.getWeather("Perth", "Australia/Perth", 5, 24),
     WeatherIns.getWeather("Auckland", "Pacific/Auckland", 10, 20),
     WeatherIns.getWeather("Vostok", "Antarctica/Vostok", -54, -70),
-    WeatherIns.getWeather("Troll", "Antarctica/Troll", -50, -72)
+    WeatherIns.getWeather("Troll", "Antarctica/Troll", -50, -72),
   ];
 };
 module.exports = {
   allTimeZones,
   timeForOneCity,
-  nextNhoursWeather
+  nextNhoursWeather,
 };
