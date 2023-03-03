@@ -1,4 +1,3 @@
-window.setTimeout(function () { window.location.reload();}, 60000);
 import { changeToFahrenheit, fetchData, fetchCityDetails } from "./export.js";
 
 class WeatherApp {
@@ -546,4 +545,5 @@ class WeatherNow extends WeatherApp {
   weatherObj.categorizeCities("sunny");
   weatherObj.sortContinents();
   setInterval(weatherObj.sortContinents.bind(weatherObj), 60000);
+  setInterval(weatherObj.changeWeather.bind(weatherObj), 1000);
 })();
