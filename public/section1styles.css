@@ -10,15 +10,14 @@
   transform: translateY(100%);
 }
 .splashscreen-bg{
-  animation: splashscreen 3s forwards;
+  animation: splashscreen 10s forwards;
 }
 .weather-logo {
   height: auto;
   left: 42%;
   position: relative;
   width:16%;
-
-top:0;
+  top:0;
 }
 .weather-text {
   align-self: center;
