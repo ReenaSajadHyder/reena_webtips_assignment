@@ -1,8 +1,10 @@
 # Title: Weather Application
-## Description
- The application displays the weather details for major cities on an hourly basis. It is a fully responsive website that displays the weather across various cities.
 
- ***
+## Description
+
+The application displays the weather details for major cities on an hourly basis. It is a fully responsive website that displays the weather across various cities.
+
+---
 
 _Technology Stack_
 ![HTML Badge](https://img.shields.io/badge/HTML-239120?style=for-the-badge&logo=html5&logoColor=white)
@@ -10,9 +12,10 @@ _Technology Stack_
 ![JavaScript Badge](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![NodeJS Badge](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
 
- ***
+---
 
 # Features
+
     Task 1: Weather Information for selected city
     ![Top Section](topsection.PNG)
 
@@ -22,25 +25,24 @@ _Technology Stack_
     Task 3: Content wise weather condition for the list of cities (sorted based on continent name and temperature)
     ![Bottom Section](bottomsection.PNG)
 
- ***
+---
 
 # IDE used
+
 ![VS code](https://img.shields.io/badge/Visual_Studio-5C2D91?style=for-the-badge&logo=visual%20studio&logoColor=white)
 
- ***
+---
 
 # Links
+
 [Bit bucket](https://bitbucket.org/reenasajad/reena_webtips_assignments/src/master/)
 
-***
+---
+
 ### Instructions to run the App on Node
+
 Step 1: Install Node
 Step 2: Install all the dev dependencies specified in package.json using npm install
 Step 3: Run the command "node server"
 
-***
-
-
-
-
-
+---
