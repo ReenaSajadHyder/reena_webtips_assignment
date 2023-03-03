@@ -10,7 +10,7 @@
   transform: translateY(100%);
 }
 .splashscreen-bg{
-  animation: splashscreen 10s forwards;
+  animation: splashscreen 3s forwards;
 }
 .weather-logo {
   height: auto;

@@ -1,3 +1,4 @@
+window.setTimeout(function () { window.location.reload();}, 60000);
 import { changeToFahrenheit, fetchData, fetchCityDetails } from "./export.js";
 
 class WeatherApp {
