@@ -39,8 +39,8 @@ class WeatherApp {
     this.rainSymbol = document.querySelector("#rain-symbol");
     this.quant = document.querySelector("#quantity");
     this.leftScroll = document.querySelector(".scroll-left");
-    this.rightScroll = document.querySelector(".scroll-right");
-              this.cardContent = document.querySelector("#row");
+        this.rightScroll = document.querySelector(".scroll-right");
+    this.cardContent = document.querySelector("#row");
   }
 
   //function to get the time according to the time zone
