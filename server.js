@@ -1,45 +1,32 @@
 const express = require("express");
-const {
-  allTimeZones,
-  timeForOneCity,
-  nextNhoursWeather,
-} = require("./timeZone");
+const {fork} = require("child_process");
+const path = require("path");
 const app = express();
 const Port = 5000;
 
-app.use(express.static("public"));
-app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")))
+app.use(express.json())
 
 app.get("/", (req, res) => {
   res.render("/public/index.html");
 });
 
 app.get("/allCities", (req, res) => {
-  weatherResult = allTimeZones();
-  res.json(weatherResult);
-});
+  const allCities = fork('./allTimeZones.js');
+  allCities.send("message");
+  allCities.on("message", message => res.json(message));
+})
 
 app.get("/cityData", (req, res) => {
-  var city = req.query.city;
-  if (city) {
-    res.json(timeForOneCity(city));
-  } else {
-    res
-      .status(404)
-      .json({ Error: "Not a valid endpoint. Please check API Doc" });
-  }
+  const cityData = fork('./timeForOneCity.js');
+  cityData.send({"city": req.query.city});
+  cityData.on("message", message => res.json(message));
 });
 
 app.post("/nextFiveHours", (req, res) => {
-  let cityDTN = req.body.city_Date_Time_Name;
-  let hours = req.body.hours;
-  if (cityDTN && hours) {
-    res.json(nextNhoursWeather(cityDTN, hours, weatherResult));
-  } else {
-    res
-      .status(404)
-      .json({ Error: "Not a valid endpoint. Please check API Doc" });
-  }
+  const nextFiveHours = fork('./nextNhoursWeather.js');
+  nextFiveHours.send({cityDTN: req.body.city_Date_Time_Name, hours: req.body.hours});
+  nextFiveHours.on("message", message => res.json(message));
 });
 
 app.listen(Port, (err) => {

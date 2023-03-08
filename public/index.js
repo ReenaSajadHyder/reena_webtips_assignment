@@ -39,7 +39,7 @@ class WeatherApp {
     this.rainSymbol = document.querySelector("#rain-symbol");
     this.quant = document.querySelector("#quantity");
     this.leftScroll = document.querySelector(".scroll-left");
-    this.rightScroll = document.querySelector(".scroll-right");
+        this.rightScroll = document.querySelector(".scroll-right");
     this.cardContent = document.querySelector("#row");
   }
 
@@ -545,4 +545,5 @@ class WeatherNow extends WeatherApp {
   weatherObj.categorizeCities("sunny");
   weatherObj.sortContinents();
   setInterval(weatherObj.sortContinents.bind(weatherObj), 60000);
+  setInterval(weatherObj.changeWeather.bind(weatherObj), 1000);
 })();

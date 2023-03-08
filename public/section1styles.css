@@ -17,8 +17,7 @@
   left: 42%;
   position: relative;
   width:16%;
-
-top:0;
+  top:0;
 }
 .weather-text {
   align-self: center;
@@ -27,9 +26,9 @@ top:0;
 }
 @keyframes splashscreen {
 0% {
+    transform: translateY(0%);
     z-index:3;
     opacity:1;
-    transform: translateY(0%);
   }
 90%{
     z-index: -1;
