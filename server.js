@@ -9,7 +9,7 @@ app.use(express.json())
 
 app.get("/", (req, res) => {
   res.render("/public/index.html");
-})
+});
 
 app.get("/allCities", (req, res) => {
   const allCities = fork('./allTimeZones.js');
@@ -30,10 +30,11 @@ app.post("/nextFiveHours", (req, res) => {
 });
 
 app.listen(Port, (err) => {
-  if(err){
+  if (err) {
     console.log(err);
-  }
-  else{
-    console.log("Server connected at port number 5000 with url http://localhost:5000/");
+  } else {
+    console.log(
+      "Server connected at port number 5000 with url http://localhost:5000/"
+    );
   }
 });
