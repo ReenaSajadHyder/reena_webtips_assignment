@@ -533,7 +533,7 @@ class WeatherNow extends WeatherApp {
 }
 
 (async function () {
-  let url = "http://localhost:5000/allCities";
+  let url = "/allCities";
   let result = await fetchData(url);
   let listOfCities = {};
   for (let i = 0; i < result.length; i++) {

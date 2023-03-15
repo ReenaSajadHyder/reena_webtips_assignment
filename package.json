@@ -25,5 +25,8 @@
       "prettier --single-quote --write",
       "git add"
     ]
+  },
+  "dependencies": {
+    "nw": "^0.12.0"
   }
 }

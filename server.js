@@ -2,7 +2,7 @@ const express = require("express");
 const {fork} = require("child_process");
 const path = require("path");
 const app = express();
-const Port = 5000;
+const Port = 80;
 
 app.use(express.static(path.join(__dirname, "public")))
 app.use(express.json())
@@ -30,6 +30,7 @@ app.post("/nextFiveHours", (req, res) => {
 });
 
 app.listen(Port, (err) => {
+  
   if (err) {
     console.log(err);
   } else {
@@ -37,4 +38,5 @@ app.listen(Port, (err) => {
       "Server connected at port number 5000 with url http://localhost:5000/"
     );
   }
+  // nw.Window.open("localhost:5000");
 });

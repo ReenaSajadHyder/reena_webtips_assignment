@@ -15,10 +15,10 @@ export async function fetchData(url) {
 //fetch function for hourly time
 export async function fetchCityDetails(currentCity, data, setNextFiveHrsTemp) 
   {
-    let url = `http://localhost:5000/cityData?city=${currentCity}`;
+    let url = `/cityData?city=${currentCity}`;
     const result = await fetchData(url);
     const response2 = await fetch(
-      "http://localhost:5000/nextFiveHours",
+      "/nextFiveHours",
       {
         method: "POST",
         body: JSON.stringify({
